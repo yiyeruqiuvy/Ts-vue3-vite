@@ -1,0 +1,82 @@
+//文本n行溢出隐藏
+@mixin ellipsisBasic($clamp: 2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $clamp;
+}
+
+// 清除浮动
+@mixin clearfix {
+  &:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+  }
+
+  *height: 1%;
+}
+
+// 弹性布局
+@mixin flexBox($direction: row, $justify: null, $align: null, $flex-wrap: null) {
+  display: flex;
+
+  @if ($direction !=null) {
+    flex-direction: $direction;
+  }
+
+  @if ($justify !=null) {
+    justify-content: $justify;
+  }
+
+  @if ($align !=null) {
+    align-items: $align;
+  }
+
+  @if ($flex-wrap !=null) {
+    flex-wrap: $flex-wrap;
+  }
+}
+
+// 绝对定位布局
+@mixin posa($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+
+  @if ($left !="" & & $left !=null) {
+    left: $left;
+  }
+
+  @if ($right !="" & & $right !=null) {
+    right: $right;
+  }
+
+  @if ($top !="" & & $top !=null) {
+    top: $top;
+  }
+
+  @if ($bottom !="" & & $bottom !=null) {
+    bottom: $bottom;
+  }
+}
+
+// 背景图片
+@mixin bg($src, $size: cover) {
+  background: url($src) no-repeat center center;
+  background-size: $size
+}
+
+// 模块布局
+@mixin bj($h) {
+  width: 100%;
+  height: $h;
+  line-height: $h;
+  box-sizing: border-box;
+  padding-left: 25px;
+  color: #333;
+  border-right: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
