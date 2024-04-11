@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: SourceHanSansCN-Regular;
+}
+.box {
+  width: 19.2rem;
+  height: 10.8rem;
+}
+.map-screen-bg {
+  width: 19.2rem;
+  height: 10.8rem;
+  background-size: 100%;
+  overflow: hidden;
+}
+.map-content {
+  padding: 0 0.29rem;
+  display: flex;
+  justify-content: space-between;
+}
+.screen-bg {
+  width: 19.2rem;
+  height: 10.8rem;
+  overflow: hidden;
+  background: url(../img/nomap-bg.png);
+  background-size: 100%;
+}
+.screen-nav {
+  animation: navBox 2.5s forwards;
+}
+/* 动画 */
+@keyframes mainPage {
+  0% {
+    width: 19.2rem;
+    height: 10.8rem;
+    transform: scale(2.2) rotateZ(-45deg);
+  }
+  50% {
+    width: 19.2rem;
+    height: 10.8rem;
+    transform: scale(1.8) rotateZ(-23deg);
+  }
+  100% {
+    width: 19.2rem;
+    height: 10.8rem;
+    transform: scale(1) rotateZ(0);
+  }
+}
+@keyframes navBox {
+  0% {
+    top: -0.8rem;
+  }
+  50% {
+    top: -0.8rem;
+  }
+  100% {
+    top: 0;
+  }
+}
+@keyframes leftTitle {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes rightTitle {
+  0% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes map1 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes noMap {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+@keyframes leftArrow {
+  0% {
+    transform: translateX(-70%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(90%);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+@keyframes rightAwwor {
+  0% {
+    transform: translateX(70%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-90%);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}

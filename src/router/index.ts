@@ -3,22 +3,23 @@
  * @Author: peiqf
  * @Date: 2022-12-19 16:09:52
  * @LastEditors: peiqf
- * @LastEditTime: 2022-12-20 15:05:35
+ * @LastEditTime: 2022-12-21 16:13:24
  */
 import { createWebHashHistory, createRouter } from 'vue-router';
-const routes = [
-    {
-        path: '/', // 路由的路径
-        // redirect: '/index',
-        name: 'index', // 路由的名称
-        component: () => import('../views/index.vue'), // 路由的组件
-    },
-    {
-        path: '/index',
-        name: 'index',
-        component: () => import('../views/index.vue'),
-    },
-];
+import routes from './routes';
+// const routes = [
+//     {
+//         path: '/', // 路由的路径
+//         // redirect: '/index',
+//         name: 'index', // 路由的名称
+//         component: () => import('../views/index.vue'), // 路由的组件
+//     },
+//     // {
+//     //     path: '/index',
+//     //     name: 'index',
+//     //     component: () => import('../views/index.vue'),
+//     // },
+// ];
 
 // 创建路由实例并传递 `routes` 配置
 const router = createRouter({

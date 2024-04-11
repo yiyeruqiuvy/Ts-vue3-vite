@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2022-12-19 15:37:11
  * @LastEditors: peiqf
- * @LastEditTime: 2022-12-20 14:47:32
+ * @LastEditTime: 2022-12-21 17:29:34
 -->
 <script setup lang="ts">
     // import HelloWorld from './components/HelloWorld.vue';
@@ -18,9 +18,9 @@
             <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
         </a>
     </div> -->
-    <div id="app">
-        <router-view />
-    </div>
+    <!-- <div id="app"> -->
+    <router-view />
+    <!-- </div> -->
 
     <!-- <HelloWorld msg="Vite + Vue" /> -->
 </template>

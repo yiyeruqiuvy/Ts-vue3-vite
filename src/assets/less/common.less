@@ -1,0 +1,213 @@
+// 公共样式类
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: SourceHanSansCN-Regular;
+}
+
+.box {
+  width: 19.2rem;
+  height: 10.8rem;
+}
+
+// 主页面
+.map-screen-bg {
+  width: 19.2rem;
+  height: 10.8rem;
+  overflow: hidden;
+  // background: url(../img/map-bg.png);
+  background-size: 100%;
+  overflow: hidden;
+  // animation: mainPage 1s;
+}
+
+.map-content {
+  padding: 0 0.29rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.screen-bg {
+  width: 19.2rem;
+  height: 10.8rem;
+  overflow: hidden;
+  background: url(../img/nomap-bg.png);
+  background-size: 100%;
+}
+
+.screen-nav {
+  // opacity: 0;
+  animation: navBox 2.5s forwards;
+}
+
+// 左边盒子
+// .map-left-box{
+//   opacity:0;
+//   animation: rightTitle 4.8s forwards;
+// }
+// 右边盒子
+// .map-right-box{
+//   opacity:0;
+//   animation: rightTitle 4.8s forwards;
+// }
+// 中间盒子（无地图）
+// .map-center-box {
+//   width: calc(100% - 8rem);
+//   padding: 0 0.8rem;
+//   opacity:0;
+//   animation: noMap 4s forwards;
+// }
+// 左右箭头动画
+// .left-arrow {
+//   opacity: 0;
+//   animation: leftArrow 3.8s 2s forwards;
+// }
+// .right-arrow {
+//   opacity: 0;
+//   animation: rightAwwor 3.8s 2s forwards;
+// }
+
+/* 动画 */
+// 主页面旋转动画
+@keyframes mainPage {
+  0% {
+    width: 19.2rem;
+    height: 10.8rem;
+    transform: scale(2.2) rotateZ(-45deg);
+  }
+
+  50% {
+    width: 19.2rem;
+    height: 10.8rem;
+    transform: scale(1.8) rotateZ(-23deg);
+  }
+
+  100% {
+    width: 19.2rem;
+    height: 10.8rem;
+    transform: scale(1) rotateZ(0);
+  }
+}
+
+// 顶部导航栏进入动画
+@keyframes navBox {
+  0% {
+    top: -0.8rem;
+    // transform: translateY(-100%);
+    // opacity: 0;
+  }
+
+  50% {
+    top: -0.8rem;
+    // transform: translateY(-100%);
+    // opacity: 0;
+  }
+
+  100% {
+    top: 0;
+    // transform: translateY(0%);
+    // opacity: 1;
+  }
+}
+
+// 左边盒子进入动画
+@keyframes leftTitle {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// 右边盒子进入动画
+@keyframes rightTitle {
+  0% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// 地图动画
+@keyframes map1 {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+// 无地图时中间盒子动画
+@keyframes noMap {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+// 箭头动画
+@keyframes leftArrow {
+  0% {
+    transform: translateX(-70%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(90%);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes rightAwwor {
+  0% {
+    transform: translateX(70%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-90%);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}

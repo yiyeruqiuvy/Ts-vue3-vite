@@ -3,18 +3,21 @@
  * @Author: peiqf
  * @Date: 2022-12-19 15:37:11
  * @LastEditors: peiqf
- * @LastEditTime: 2022-12-21 11:36:18
+ * @LastEditTime: 2023-01-28 15:31:32
  */
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import VueSetupExtend from 'vite-plugin-vue-setup-extend';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         vue(),
+    VueSetupExtend(),
         AutoImport({
             resolvers: [ElementPlusResolver()],
         }),
@@ -22,6 +25,13 @@ export default defineConfig({
             resolvers: [ElementPlusResolver()],
         }),
     ],
+  // 使用别名@
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+    // 引入公共css样式
     css: {
         preprocessorOptions: {
             scss: {
