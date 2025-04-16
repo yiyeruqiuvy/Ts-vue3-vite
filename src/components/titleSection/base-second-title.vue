@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2023-07-24 14:50:11
  * @LastEditors: peiqf
- * @LastEditTime: 2023-08-16 09:24:33
+ * @LastEditTime: 2025-04-16 17:59:56
 -->
 <template>
   <div
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('/public/font/alibaba.less');
+// @import url('/public/font/alibaba.less');
 
 .base-second-title2 {
   width: 100%;

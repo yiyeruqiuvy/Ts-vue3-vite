@@ -4,7 +4,7 @@
  * @Author: wangting
  * @Date: 2023-04-14 21:11:59
  * @LastEditors: peiqf
- * @LastEditTime: 2024-04-24 11:09:12
+ * @LastEditTime: 2025-04-16 16:22:43
 -->
 <template>
   <div class="first-title">
@@ -22,7 +22,9 @@ export default {
   data() {
     return {}
   },
-  mounted() {},
+  mounted() {
+    console.log('item222222')
+  },
   methods: {},
   components: {}
 }

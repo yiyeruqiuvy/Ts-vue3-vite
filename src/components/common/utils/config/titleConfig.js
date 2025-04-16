@@ -2,7 +2,7 @@
  * @Author: NIXY
  * @LastEditors: peiqf
  * @Date: 2023-04-10 19:55:51
- * @LastEditTime: 2023-09-07 19:39:27
+ * @LastEditTime: 2025-04-16 17:28:37
  * @Description: desc
  * @FilePath: \cqGit\src\scopes\project\bigScreen\modulePart\situationAwareness\modulePart\districtBigScreen\utils\pageComponentConfig.js
  */
@@ -28,11 +28,12 @@ const config = [
     },
     components: [
       {
-        name: "base-first-title",
-        path: "titleSection/base-first-title",
+        name: "BaseFirstTitle",
+        path: "titleSection/BaseFirstTitle",
         ref: "base-first-title",
         moduleName: "标题1",
         componentsDesc: "标题1",
+        // com:null,
         parameterDesc: "我是参数参数说明",
         url: "",
         style: {

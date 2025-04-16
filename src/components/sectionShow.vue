@@ -3,12 +3,12 @@
  * @Author: peiqf
  * @Date: 2023-09-07 14:25:28
  * @LastEditors: peiqf
- * @LastEditTime: 2024-04-24 14:23:48
+ * @LastEditTime: 2025-04-16 17:58:37
 -->
 <template>
   <div>
     <div
-      v-for="(item, index) in componentConfig"
+      v-for="(item, index) in _componentConfig"
       :key="index"
       :class="item.className || ''"
       :style="item.style"
@@ -23,7 +23,7 @@
             {{ item2.componentsDesc }}
           </div>
           <!-- <baseFirstTitle :title="'21121'"></baseFirstTitle> -->
-          <component :is="item2.name" v-bind="item2.config" />
+          <component :is="item2.com" v-bind="item2.config" />
           <baseModuleBg
             style="
               border-radius: 0.1rem;
@@ -42,12 +42,16 @@
         <!-- </template> -->
       </div>
     </div>
+    <!-- 测试 -->
+     <component :is="com1" title="9999" />
+     <component :is="com2" title="88888" />
+
   </div>
 </template>
 
 <script setup lang="ts" name="sectionShow">
-  import baseFirstTitle from "@/components/titleSection/base-first-title.vue"
-  import { onMounted, reactive ,defineAsyncComponent} from 'vue'
+  // import baseFirstTitle from "@/components/titleSection/base-first-title.vue"
+  import { onBeforeMount, onMounted,nextTick, reactive ,defineAsyncComponent,markRaw, ref} from 'vue'
   import {app} from '@/main'
 
   const props = defineProps({
@@ -58,6 +62,12 @@
             },
         },
     })
+    const _componentConfig = reactive([
+      ... props.componentConfig
+    ])
+    let com2= ref('')
+    const com1 = markRaw(defineAsyncComponent(() =>
+      import(`@/components/titleSection/BaseFirstTitle.vue`)))
   const initComponents = (config:any)=> {
       // console.log(app._context.components,'app.component')
       config.forEach((item:any) => {
@@ -67,18 +77,32 @@
           if (app._context.components.hasOwnProperty(item2.name)) {
             console.log('组件已经注册!')
          }else { 
-         app.component(`${item2.name}`, defineAsyncComponent(() =>
-            import(`@/components/${item2.path}`))) 
+          const comUrl = `./${item2.path}.vue`
+          // console.log(`@/components/${item2.path}.vue`,comUrl,'999')
+          item2.com = markRaw(defineAsyncComponent(() =>import(comUrl)))
+          if(comUrl === './src/components/titleSection/BaseFirstTitle.vue'){
+            com2 = item2.com
+          }
+           console.log(item2.com === com1,'item2.component')
+           console.log(item2.com,com1,'item2')
+
+        //  app.component(item2.name, item2.component) 
          }
+
+// ))
           
         })
       })
       // this.componentConfig = config;
     }
-  onMounted(() => {
-        // console.log(infeedBarData);
-        initComponents(props.componentConfig)
-    });
+    initComponents(_componentConfig)
+    console.log(com2,'com2')
+    // onBeforeMount(() => {
+    //     // console.log(infeedBarData);
+    //     nextTick(() => {
+    //       initComponents(_componentConfig)
+    //     });
+    // });
   
 
 </script>
