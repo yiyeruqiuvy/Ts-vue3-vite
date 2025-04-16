@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2022-12-19 15:37:11
  * @LastEditors: peiqf
- * @LastEditTime: 2023-02-28 16:34:05
+ * @LastEditTime: 2024-04-24 09:46:16
  */
 import { createApp } from 'vue';
 // import './style.css';
@@ -102,3 +102,4 @@ app.config.globalProperties.option = option;
 // app.use(HighchartsVue);
 
 app.mount('#app');
+export { app };

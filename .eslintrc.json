@@ -51,6 +51,7 @@
         /**
          * Just for beauty
          */
-        "quotes": ["warn", "single"]
+        "quotes": ["warn", "single"],
+        "parser": "flow"
     }
 }
