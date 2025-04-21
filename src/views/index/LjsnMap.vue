@@ -1,9 +1,9 @@
 <!--
- * @Descripttion: 
+ * @Descripttion: 地图入口
  * @Author: peiqf
  * @Date: 2025-04-21 10:19:19
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 15:08:48
+ * @LastEditTime: 2025-04-21 15:44:28
 -->
 <script setup lang="ts" name="name1">
 import { ref, onMounted } from 'vue';
