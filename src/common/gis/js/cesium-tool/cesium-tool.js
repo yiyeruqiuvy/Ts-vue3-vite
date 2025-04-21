@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2024-03-18 20:25:05
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 17:54:46
+ * @LastEditTime: 2025-04-21 17:58:55
  */
 
 import { merge } from 'lodash';
@@ -13,8 +13,8 @@ import { commonUtits } from '@/utils/tool.js';
 
 import API from '@/common/gis/js/cesium-tool/api/index.js';
 // import $ from 'jquery';
-import MAP_BUS_EVENTS from '@/scopes/project/wideScreen/modulePart/components/sjMapModule/consts/busEvents';
-import Vue from 'vue';
+import MAP_BUS_EVENTS from '@/common/gis/js/busEvents.js';
+// import Vue from 'vue';
 const faceConfig = {
   filePath:
     'http://23.210.52.80:18081/cockpit/api/common/attachmentFile/previewFileAuth/'
@@ -598,24 +598,24 @@ class CesiumTool {
     }
   }
   //自定义气泡
-  configQiPao() {
-    // 使用bus进行通知点击区域
-    Vue.bus.emit(MAP_BUS_EVENTS.CLICK_CQ_3D_AREA, ...[...arguments].slice(1));
-    // return
-    // console.log(param, window.centerPointList)
-    // let filterObj = window.centerPointList.filter(
-    //   item => item.areaCode === param.data['区县代码']
-    // )[0]
-    // console.log('filterObj', filterObj)
-    // // alert('iooo')
-    // $('.pups-box').html('')
-    // var divmark = `<div class='pups'   style='position:absolute; border-radius: 10px;left:${param.obj.left};top:${param.obj.top}' >
-    // <p>${(filterObj.total || 0)}  <span class="event">风险数量</span></p>
-    // <p class='areaName'>${filterObj.areaName}</p>
-    // </div>`
-    // // let window.sjMapModule.viewer
-    // $('.pups-box').append(divmark)
-  }
+  // configQiPao() {
+  //   // 使用bus进行通知点击区域
+  //   Vue.bus.emit(MAP_BUS_EVENTS.CLICK_CQ_3D_AREA, ...[...arguments].slice(1));
+  //   // return
+  //   // console.log(param, window.centerPointList)
+  //   // let filterObj = window.centerPointList.filter(
+  //   //   item => item.areaCode === param.data['区县代码']
+  //   // )[0]
+  //   // console.log('filterObj', filterObj)
+  //   // // alert('iooo')
+  //   // $('.pups-box').html('')
+  //   // var divmark = `<div class='pups'   style='position:absolute; border-radius: 10px;left:${param.obj.left};top:${param.obj.top}' >
+  //   // <p>${(filterObj.total || 0)}  <span class="event">风险数量</span></p>
+  //   // <p class='areaName'>${filterObj.areaName}</p>
+  //   // </div>`
+  //   // // let window.sjMapModule.viewer
+  //   // $('.pups-box').append(divmark)
+  // }
 }
 
 export default CesiumTool;

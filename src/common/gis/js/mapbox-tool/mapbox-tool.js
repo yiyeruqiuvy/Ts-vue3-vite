@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2024-03-18 20:25:05
  * @LastEditors: peiqf
- * @LastEditTime: 2025-03-17 17:43:40
+ * @LastEditTime: 2025-04-21 17:57:22
  */
 
 import { merge, debounce } from 'lodash';
@@ -12,7 +12,7 @@ import faceConfig from 'faceConfig';
 import { commonUtits } from '@/scopes/project/bigScreenMapbox/common/utils/tool.js';
 import API from '@/scopes/project/cesiumMap/modulePart/cesiumMap/api/index.js';
 import $ from 'jquery';
-import MAP_BUS_EVENTS from '@/scopes/project/wideScreen/modulePart/components/sjMapModule/consts/busEvents';
+import MAP_BUS_EVENTS from '@/common/gis/js/busEvents.js';
 import Vue from 'vue';
 import API2 from '@/scopes/project/bigScreenMapbox/modulePart/situationAwareness/modulePart/components/cityPlateScreenCom/supervisionEvaluation/api/index.js';
 
@@ -65,7 +65,7 @@ class MapboxTool {
     }
     // 接受一个数组
     if (points.constructor === Array && points.length > 0) {
-      points.forEach(item => {
+      points.forEach((item) => {
         // 必填参数
         // item = {
         //   longitude: '',
@@ -132,7 +132,7 @@ class MapboxTool {
     } catch (error) {}
     if (_Points.constructor === Array && _Points.length > 0) {
       Object.keys(window[this.mapboxMapMethod].MapboxMethod.overlays).forEach(
-        item => {
+        (item) => {
           if (!this.delExceptLayerCode.includes(item)) {
             this.delPointByCode(item);
           }
@@ -165,7 +165,7 @@ class MapboxTool {
     window[this.mapboxMapMethod].removeLayer('counties-highlighted');
     const _arr = [];
     if (dataList.constructor === Array && dataList.length > 0) {
-      dataList.forEach(item => {
+      dataList.forEach((item) => {
         // 构造五色图数据
         if (item?.adcode && item?.colorField) {
           const color = this.textMappColor[item?.colorField]
@@ -224,7 +224,7 @@ class MapboxTool {
     });
     // 五色图标识
     this.fiveColorMapFlag = true;
-    this.fiveColorMapData = dataList
+    this.fiveColorMapData = dataList;
     // 加载选中图层
     // if (this.mapCode !== 'paceAndWar') {
     window[this.mapboxMapMethod].addHoverLayers('counties-highlighted', {
