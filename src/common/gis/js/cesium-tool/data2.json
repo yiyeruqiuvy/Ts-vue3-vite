@@ -1,0 +1,42 @@
+{
+  "ssyx": [
+    {
+      "label": "测试桥梁",
+      "iconUrl": "http://localhost:8080/img/icon.b22c917c.png",
+      "configCode": "qiaoliang_point"
+    }
+  ],
+  "rygk": [
+    {
+      "label": "人员管控",
+      "isSelect": "false",
+      "modalType": "EMIT",
+      "modalObject": "openArcgisModal",
+      "pointIcon": "",
+      "isSelectIcon": "",
+      "unSelectIcon": "",
+      "configCode": "rygk_point"
+    },
+
+    {
+      "label": "人员管控",
+      "modalType": "",
+      "modalObject": "",
+      "pointIcon": "",
+      "isSelectIcon": "",
+      "unSelectIcon": "",
+      "configCode": "rygk_point"
+    }
+  ],
+  "glxf": [
+    {
+      "label": "高楼消防",
+      "modalType": "",
+      "modalObject": "",
+      "pointIcon": "",
+      "isSelectIcon": "",
+      "unSelectIcon": "",
+      "configCode": "glxf_point"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2025-04-21 10:30:21
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 14:43:16
+ * @LastEditTime: 2025-04-21 17:33:58
  */
 import js from '@eslint/js';
 import globals from 'globals';
@@ -25,7 +25,13 @@ export default defineConfig([
           allowTaggedTemplates: false
         }
       ],
-      semi: ['warn', 'never'], // 禁止尾部使用分号
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-constant-condition': ['warn', { checkLoops: false }],
+      'no-useless-escape': 'off', // 允许使用转义字符
+      'no-extra-boolean-cast': 'off',
+      'no-loss-of-precision': 'off',
+      // semi: ['warn', 'never'], // 禁止尾部使用分号
+      'no-undef': 'off',
       'no-console': 'warn', // 禁止出现console
       'no-debugger': 'warn', // 禁止出现debugger
       'no-duplicate-case': 'warn', // 禁止出现重复case

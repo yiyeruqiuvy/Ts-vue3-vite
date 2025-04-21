@@ -1,0 +1,36 @@
+[
+  {
+    "catalogueType": "ARCGIS",
+    "childrenNum": 0,
+    "childrenSize": 0,
+    "coverageId": "0251063d990e03733f7d1bcf5e1e991e",
+    "idpath": "9950ede53a239b99b176b3166ee5592d/389155ff29956fce589a9e300864c818/0251063d990e03733f7d1bcf5e1e991e",
+    "isSelect": true,
+    "label": "人员密集场所",
+    "layer": "",
+    "level": 3,
+    "namepath": "社会治理/安全生产管理/九小场所安全监管",
+    "pid": "389155ff29956fce589a9e300864c818",
+    "url": "http://23.36.2.111/multApp/datamanager/service/781a74aa-d91c-446f-9e46-38cd0407751f/3aa01353-6689-44b8-a27f-c50f9ac5b5c6/97f66d20-b3aa-4036-86f0-5718d4f51e46/MapServer"
+  },
+  {
+    "catalogueType": "ARCGIS",
+    "childrenNum": 0,
+    "childrenSize": 0,
+    "coverageId": "0251063d990e03733f7d1bcf5e1e991e",
+    "idpath": "9950ede53a239b99b176b3166ee5592d/389155ff29956fce589a9e300864c818/0251063d990e03733f7d1bcf5e1e991e",
+    "isSelect": true,
+    "label": "重点场所范围",
+    "layer": "",
+    "level": 3,
+    "namepath": "社会治理/安全生产管理/九小场所安全监管",
+    "pid": "389155ff29956fce589a9e300864c818",
+    "url": "http://23.36.2.111/multApp/datamanager/service/781a74aa-d91c-446f-9e46-38cd0407751f/0b56144e-9846-4b64-89c8-961a19f36114/ae7e5ec0-bf89-4f8c-a85e-084565a2d92f/MapServer"
+  },
+  {
+    "type": "ownPoint",
+    "fun": "window",
+    "funName": "addPointsBySceneCode",
+    "param": ""
+  }
+]

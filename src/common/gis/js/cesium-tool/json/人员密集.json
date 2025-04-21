@@ -1,0 +1,19 @@
+[
+  { "名称": "九街", "longitude": 106.5412, "latitude": 29.5821, "height": 350.505 },
+  { "名称": "磁器口", "longitude": 106.447, "latitude": 29.5835, "height": 212.467 },
+  { "名称": "解放碑", "longitude": 106.5733, "latitude": 29.5602, "height": 250.188 },
+  { "名称": "长嘉汇", "longitude": 106.5823, "latitude": 29.5811, "height": 215.646 },
+  { "名称": "大剧院", "longitude": 106.5776, "latitude": 29.5728, "height": 258.863 },
+  { "名称": "南滨路沿线", "longitude": 106.5825, "latitude": 29.5474, "height": 172.547 },
+  { "名称": "李子坝", "longitude": 106.5343, "latitude": 29.5565, "height": 207.853 },
+  { "名称": "华岩寺", "longitude": 106.4422, "latitude": 29.4961, "height": 326.059 },
+  { "名称": "动物园", "longitude": 106.5059, "latitude": 29.5039, "height": 244.14 },
+  { "名称": "十八梯", "longitude": 106.5694, "latitude": 29.5548, "height": 216.379 },
+  {
+    "名称": "洪崖洞",
+    "longitude": 106.5753417,
+    "latitude": 29.56508471,
+    "height": 214.003
+  }
+]
+
