@@ -7,8 +7,8 @@
 -->
 <script setup lang="ts" name="name1">
   import { ref, onMounted } from 'vue';
-    const count1 = ref<number>(9);
-  const props = withDefaults(defineProps<{ count?: number | boolean; title?: string }>(), {
+          const count1 = ref<number>(9);
+        const props = withDefaults(defineProps<{ count?: number | boolean; title?: string }>(), {
     count: 666,
     title: 'xxx',
   });
