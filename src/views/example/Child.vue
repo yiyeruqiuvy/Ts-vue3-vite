@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2022-12-20 16:28:27
  * @LastEditors: peiqf
- * @LastEditTime: 2022-12-21 11:40:56
+ * @LastEditTime: 2025-04-21 09:55:28
 -->
 <!-- 子组件中 Child.vue -->
 
@@ -33,8 +33,6 @@
     // const ChildProps = defineProps({
     //     count: 10,
     // });
-
-    //下面的看不懂
     // interface testType {
     //     name: string;
     //     age: number;
