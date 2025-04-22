@@ -2,7 +2,7 @@
  * @Author: NIXY
  * @LastEditors: peiqf
  * @Date: 2023-04-10 17:11:29
- * @LastEditTime: 2025-04-21 17:29:45
+ * @LastEditTime: 2025-04-22 09:22:24
  * @Description: desc
  * @FilePath: \cqGit\src\scopes\project\bigScreen\common\utils\utils.js
  */
@@ -14,6 +14,8 @@
 
 // 检验身份证时推荐使用isIdCardNo方法进行验证（使用此方法校验510104201811076116身份证号时提示校验不通过）
 import $ from 'jquery';
+import axios from 'axios';
+const basePath = 'http://23.210.52.54:28081/cockpit/api';
 const commonUtits = {
   isEmpty(val) {
     if (val === '' || val === undefined || val === null) {
@@ -792,16 +794,7 @@ const commonUtits = {
    * @param {*} callback
    */
   getUrlPrefix(param, callback) {
-    return Base.submit(
-      null,
-      {
-        data: param,
-        url: '/common/parameterConfig/getBaseConfig',
-        withCredentials: false
-      },
-      {},
-      true
-    );
+    return axios.post(basePath, param);
   },
 
   /**

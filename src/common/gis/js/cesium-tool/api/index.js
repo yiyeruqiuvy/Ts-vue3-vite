@@ -2,47 +2,47 @@
  * @Author: NIXY
  * @LastEditors: peiqf
  * @Date: 2023-04-15 11:35:41
- * @LastEditTime: 2024-03-22 19:44:44
+ * @LastEditTime: 2025-04-22 09:13:18
  * @Description: desc
  * @FilePath: \cqGit\src\scopes\project\bigScreen\modulePart\situationAwareness\api\index.js
  */
 
-const SCREENPATH = window.faceConfig.basePath
-const taskUrl = window.faceConfig.taskUrl
-const disPath = window.faceConfig.disPath
+const SCREENPATH = 'http://23.210.52.54:28081/cockpit/api';
+const taskUrl = 'http://23.210.52.80:18081/taskcenter/api';
+const disPath = 'http://23.210.52.54:28081/dispatch';
 
 export default {
   /**
    * 直接获取完整的URL
    * @
    */
-  queryCoverageCount (param) {
+  queryCoverageCount(param) {
     return Base.submit(
       null,
       {
         data: param,
         url: SCREENPATH + '/statistics/coverage/queryCoverageCount',
-        withCredentials: false,
+        withCredentials: false
       },
       {},
       true
-    )
+    );
   },
   /**
    * 直接获取完整的URL
    * @
    */
-  getSystemJumpUrl (param) {
+  getSystemJumpUrl(param) {
     return Base.submit(
       null,
       {
         data: param,
         url: SCREENPATH + '/statistics/externalSystemConfig/getSystemJumpUrl',
-        withCredentials: false,
+        withCredentials: false
       },
       {},
       true
-    )
+    );
   },
   /**
    * 行政区域撒点
@@ -57,7 +57,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 热力图
@@ -72,7 +72,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   // 第三方链接
   queryExternalApplicationLinkNew(param) {
@@ -88,7 +88,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 页面动态加载大屏的配置化管理功能
@@ -105,7 +105,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 驾驶仓整体接入配置功能
@@ -122,7 +122,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
 
   // 修改数据
@@ -141,7 +141,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 事件任务大屏撒点 镇街事件位置点位
@@ -157,7 +157,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   // 任务单 第一层级
   countyMap(params) {
@@ -171,7 +171,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   // 任务单 第二层级
   townMap(params) {
@@ -185,7 +185,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 地图事件列表
@@ -201,7 +201,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 地图地址列表
@@ -217,7 +217,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 重大事件单撒点
@@ -234,7 +234,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 重大事件单聚合
@@ -251,7 +251,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   // 驾驶舱指标管理 --- 新接口
   queryNewIndexsysIndexList(params) {
@@ -265,7 +265,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
 
   // 水管事件列表接口
@@ -280,7 +280,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   // 水管事件最新接口
   queryEventByNew(params) {
@@ -294,7 +294,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 查询感知的图例树形 新
@@ -303,7 +303,7 @@ export default {
     return Base.submit(null, {
       url: disPath + '/dispatch/dailyScreen/queryLotDeviceLayerTree',
       data
-    })
+    });
   },
   /**
    * 查询感知的图例树形 旧的
@@ -312,7 +312,7 @@ export default {
     return Base.submit(null, {
       url: disPath + '/dispatch/dailyScreen/queryResourcePicTree',
       data
-    })
+    });
   },
   /**
    * @Descripttion: 获取感知设备接口
@@ -330,7 +330,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * @Descripttion:  渝中告警的接口，包含监测指标
@@ -348,7 +348,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * @Descripttion:  渝中告警的接口，包含监测指标
@@ -366,7 +366,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * @Descripttion: 查询图层
@@ -384,7 +384,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
 
   /**
@@ -403,7 +403,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * @Descripttion: 消防站撒点
@@ -421,7 +421,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 查询实时路况撒点信息
@@ -438,7 +438,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 查询实时路况指标撒点详情
@@ -455,7 +455,7 @@ export default {
       },
       {},
       true
-    )
+    );
   },
   /**
    * 根据指标名查询撒点数据
@@ -472,6 +472,6 @@ export default {
       },
       {},
       true
-    )
+    );
   }
-}
+};

@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2024-03-18 20:25:05
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 17:58:55
+ * @LastEditTime: 2025-04-22 09:19:10
  */
 
 import { merge } from 'lodash';
@@ -11,13 +11,14 @@ import axios from 'axios';
 // import faceConfig from 'faceConfig.js';
 import { commonUtits } from '@/utils/tool.js';
 
-import API from '@/common/gis/js/cesium-tool/api/index.js';
+// import API from '@/common/gis/js/cesium-tool/api/index.js';
 // import $ from 'jquery';
-import MAP_BUS_EVENTS from '@/common/gis/js/busEvents.js';
+// import MAP_BUS_EVENTS from '@/common/gis/js/busEvents.js';
 // import Vue from 'vue';
 const faceConfig = {
   filePath:
-    'http://23.210.52.80:18081/cockpit/api/common/attachmentFile/previewFileAuth/'
+    'http://23.210.52.80:18081/cockpit/api/common/attachmentFile/previewFileAuth/',
+  basePath: 'http://23.210.52.54:28081/cockpit/api'
 };
 class CesiumTool {
   constructor() {
@@ -519,7 +520,10 @@ class CesiumTool {
       level: '5',
       value: areaCode
     };
-    const res = await API.getAreaCascadeList(params);
+    const res = await axios.post(
+      faceConfig.basePath + '/areaCode/getAreaCascadeList',
+      params
+    );
     if (res.serviceSuccess) {
       console.log(res);
       const areaCodeList = res.data.areaCodeList;

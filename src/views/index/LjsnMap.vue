@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2025-04-21 10:19:19
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 17:37:48
+ * @LastEditTime: 2025-04-22 09:44:08
 -->
 <template>
   <!-- <div class="count">props： {{ props.count }}</div> -->
@@ -376,4 +376,9 @@ onMounted(() => {
 });
 </script>
 
-<style lang="less"></style>
+<style lang="scss">
+#bigsceen-sj-map {
+  width: 100rem;
+  height: 100rem;
+}
+</style>

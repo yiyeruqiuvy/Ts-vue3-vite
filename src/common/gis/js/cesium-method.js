@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2023-12-06 09:53:35
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 17:46:40
+ * @LastEditTime: 2025-04-22 09:35:30
  */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
@@ -18,6 +18,10 @@ import CesiumTool from '@/common/gis/js/cesium-tool/cesium-tool.js';
 // import hcJson from '../cesiumMap/l3/hc_cfgc_l3_room.json';
 // import PolylineTrailMaterialProperty from './PolylineTrailMaterialProperty.js'
 import { commonUtits } from '@/utils/tool.js';
+import mapBg1 from '../../gis/js/cesium-tool/img/image.png';
+import mapBg2 from '../../gis/js/cesium-tool/img/GlobalBkLayer1.jpg';
+import pointIcon1 from '../../gis/js/cesium-tool/img/test.png';
+import wall_out2 from '../../gis/js/cesium-tool/img/wall_out2.png';
 
 class CesiumMethod {
   constructor() {
@@ -1567,9 +1571,7 @@ class CesiumMethod {
       navigationInstructionsInitiallyVisible: false,
       navigationHelpButton: false, // 是否显示帮助信息控件
       imageryProvider: new Cesium.SingleTileImageryProvider({
-        url: isTrans
-          ? require('../cesiumMap/img/bg-trans.jpg')
-          : require('../cesiumMap/img/GlobalBkLayer1.jpg')
+        url: isTrans ? mapBg1 : mapBg2
       }),
       // imageryProvider: new Cesium.SingleTileImageryProvider({
       //   url: require('../cesiumMap/img/bg-trans.jpg')
@@ -2794,7 +2796,7 @@ class CesiumMethod {
       },
       billboard: {
         // 图像地址，URI或Canvas的属性
-        image: require('../cesiumMap/img/test.png'),
+        image: pointIcon1,
         // 设置颜色和透明度
         color: Cesium.Color.WHITE.withAlpha(0.8),
         // 高度（以像素为单位）
@@ -2884,7 +2886,7 @@ class CesiumMethod {
           //   count: 3
           // }),
           // 图像地址，URI或Canvas的属性
-          image: require('../cesiumMap/img/test.png'),
+          image: pointIcon1,
           // 设置颜色和透明度
           color: Cesium.Color.WHITE.withAlpha(1),
           // 高度（以像素为单位）
@@ -3487,7 +3489,7 @@ class CesiumMethod {
 
     let num = 1;
     const _this = this;
-    const imgSrc = require('@/scopes/project/cesiumMap/modulePart/cesiumMap/img/wall_out2.png');
+    const imgSrc = wall_out2;
     let b = this.viewer.entities.add({
       id: 'wall',
       name: 'wall',
