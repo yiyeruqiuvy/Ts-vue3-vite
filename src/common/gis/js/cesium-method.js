@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2023-12-06 09:53:35
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-22 17:38:34
+ * @LastEditTime: 2025-04-22 17:54:50
  */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
@@ -792,9 +792,9 @@ class CesiumMethod {
     };
     const res = await getAreaCascadeListData(params);
     console.log(res, '地图内调用一次');
-    if (res.serviceSuccess) {
+    if (res.data.serviceSuccess) {
       console.log(res);
-      const areaCodeList = res.data.areaCodeList;
+      const areaCodeList = res.data.data.areaCodeList;
       // 是否补充区县编码
       if (isAddMap) {
         // 转换编码
@@ -820,6 +820,7 @@ class CesiumMethod {
         }
         // 检测镇街是否有三维模型服务
         axios.get(url).then((res) => {
+          console.log(res, 'res');
           if (res && res.status === 200 && res.data) {
             if (
               res.data.type === 'success' &&
@@ -831,11 +832,11 @@ class CesiumMethod {
                 res.data.result.name.includes('地形') ||
                 res.data.result.name.includes('影像')
               ) {
-                // console.log(
-                //   '有三维模型',
-                //   res.data.result.name,
-                //   res.data.result.name.includes('地形影像')
-                // )
+                console.log(
+                  '有三维模型',
+                  res.data.result.name,
+                  res.data.result.name.includes('地形影像')
+                );
                 let _url = api + areaCode.value + '000';
                 // 兼容民政的编码
                 if (!!this.areaCodeMapping[areaCode.value]) {
