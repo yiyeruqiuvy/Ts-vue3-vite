@@ -2,8 +2,8 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus';
 
 axios.defaults.timeout = 1000 * 60; //设置接口超时时间
-axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded; charset=UTF-8';
+// axios.defaults.headers.post['Content-Type'] =
+//   'application/x-www-form-urlencoded; charset=UTF-8';
 axios.interceptors.request.use(
   (config) => {
     // // 暂时写死token
@@ -11,9 +11,9 @@ axios.interceptors.request.use(
     const TOKEN =
       'eyJ0eXAiOiJqd3QiLCJjbGFnIjoiSFM1MTIiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiIxNzIuMjIuMS4xNCIsImlhdCI6MTc0NTI4NzE0OSwic3ViIjoiRTI1NkM4QTQ3RTMxOEI2RTYxNUU4QkI4MEM0OEMyQzIxMDhFNjIzNzZCM0E3QzUxM0MyNTMxRkYxNTYxQTcwMEU5MkI3MTE1MkM1OTdEQTE5N0ZGRkYyQzk0NERCMUREIiwianRpIjoiNDNmYmFlNzg2MzJmNGRmOTllMjI0YTlmNjYxZTdjNDUifQ.M5KN9XHm2YbMnd5NPozlr05dtpspyNE5Gfj8jOh29PgYBbk-fqw3UOSzzBjJScspVDtTWv5u4I_enBfc0dtL-A';
     if (TOKEN) {
-      config.headers['TA-JTOKE'] = TOKEN;
-      // config.headers['Content-Type'] =
-      //   'application/x-www-form-urlencoded; charset=UTF-8';
+      config.headers['TA-JTOKEN'] = TOKEN;
+      config.headers['Content-Type'] =
+        'application/x-www-form-urlencoded; charset=UTF-8';
     }
     return config;
   },
@@ -91,7 +91,7 @@ if (process.env.NODE_ENV == 'development') {
     _port = 8861; */
   url1 = '/local/';
   // modelUrl = 'http://23.210.52.80:18081/cockpit/api';
-  modelUrl = 'http://localhost:8080/cockpit';
+  modelUrl = 'http://localhost:8080/cockpit1';
 } else if (process.env.NODE_ENV == 'production') {
   const { hostname, protocol, port } = window.location;
   // 生产环境

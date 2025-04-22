@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2023-12-06 09:53:35
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-22 10:01:48
+ * @LastEditTime: 2025-04-22 17:38:34
  */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
@@ -787,9 +787,11 @@ class CesiumMethod {
       '/';
     const params = {
       level: '5',
-      value: areaCode
+      value: areaCode,
+      _modulePartId_: '58d5f2da2bc24724af8d5413ccf9e32b'
     };
     const res = await getAreaCascadeListData(params);
+    console.log(res, '地图内调用一次');
     if (res.serviceSuccess) {
       console.log(res);
       const areaCodeList = res.data.areaCodeList;

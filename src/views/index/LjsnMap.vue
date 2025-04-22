@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2025-04-21 10:19:19
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-22 09:44:08
+ * @LastEditTime: 2025-04-22 10:59:29
 -->
 <template>
   <!-- <div class="count">props： {{ props.count }}</div> -->
@@ -12,12 +12,37 @@
 <script setup lang="ts" name="LjsnMap">
 // import publicMethod from '@/common/gis/js/map-public-method.js';
 import CesiumMethod from '@/common/gis/js/cesium-method.js';
-
 import { useRoute } from 'vue-router';
 import { onMounted } from 'vue';
+import axios from 'axios';
 // ref
 const route = useRoute(); // 组合式 API
 console.log(route, 'route');
+const ff = function async() {
+  const params = {
+    level: '5',
+    value: 500105,
+    _modulePartId_: '58d5f2da2bc24724af8d5413ccf9e32b'
+  };
+  const TOKEN =
+    'eyJ0eXAiOiJqd3QiLCJjbGFnIjoiSFM1MTIiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiIxNzIuMjIuMS4xNCIsImlhdCI6MTc0NTI4NzE0OSwic3ViIjoiRTI1NkM4QTQ3RTMxOEI2RTYxNUU4QkI4MEM0OEMyQzIxMDhFNjIzNzZCM0E3QzUxM0MyNTMxRkYxNTYxQTcwMEU5MkI3MTE1MkM1OTdEQTE5N0ZGRkYyQzk0NERCMUREIiwianRpIjoiNDNmYmFlNzg2MzJmNGRmOTllMjI0YTlmNjYxZTdjNDUifQ.M5KN9XHm2YbMnd5NPozlr05dtpspyNE5Gfj8jOh29PgYBbk-fqw3UOSzzBjJScspVDtTWv5u4I_enBfc0dtL-A';
+  axios
+    .post(
+      'http://localhost:8080/cockpit/statistics/eventTask/querySceneDetail',
+      params,
+      {
+        headers: {
+          //头部参数
+          'TA-JTOKEN': TOKEN,
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+    .then((res) => {
+      console.log(res, res.data, 'res.data');
+    });
+};
+ff();
 // const count1 = ref<number>(9);
 // const props = withDefaults(
 //   defineProps<{ count?: number | boolean; title?: string }>(),
