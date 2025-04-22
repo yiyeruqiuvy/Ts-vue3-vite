@@ -91,7 +91,7 @@ if (process.env.NODE_ENV == 'development') {
     _port = 8861; */
   url1 = '/local/';
   // modelUrl = 'http://23.210.52.80:18081/cockpit/api';
-  modelUrl = 'http://localhost:8080/cockpit1';
+  modelUrl = 'http://localhost:8080/cockpit';
 } else if (process.env.NODE_ENV == 'production') {
   const { hostname, protocol, port } = window.location;
   // 生产环境

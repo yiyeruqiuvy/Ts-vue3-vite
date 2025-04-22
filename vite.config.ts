@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2022-12-19 15:37:11
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-22 10:38:25
+ * @LastEditTime: 2025-04-22 10:44:50
  */
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -43,12 +43,12 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 8080,
     proxy: {
-      '/cockpit1': {
+      '/cockpit': {
         target: 'http://23.210.52.80:18081/cockpit/api',
         // 允许跨域
         changeOrigin: true,
         ws: true,
-        rewrite: (path) => path.replace(/^\/cockpit1/, '')
+        rewrite: (path) => path.replace(/^\/cockpit/, '')
       }
     }
   }
