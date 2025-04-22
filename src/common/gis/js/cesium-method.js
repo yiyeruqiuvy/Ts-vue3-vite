@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2023-12-06 09:53:35
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-22 09:35:30
+ * @LastEditTime: 2025-04-22 10:01:48
  */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
@@ -13,6 +13,7 @@
 import { merge } from 'lodash';
 // import turf from '@turf/boolean-point-in-polygon';
 import axios from 'axios';
+import { getAreaCascadeListData } from '@/apis/index.ts';
 // import faceConfig from 'faceConfig';
 import CesiumTool from '@/common/gis/js/cesium-tool/cesium-tool.js';
 // import hcJson from '../cesiumMap/l3/hc_cfgc_l3_room.json';
@@ -788,16 +789,7 @@ class CesiumMethod {
       level: '5',
       value: areaCode
     };
-    const res = await Base.submit(
-      null,
-      {
-        data: params,
-        url: '/areaCode/getAreaCascadeList',
-        withCredentials: false
-      },
-      {},
-      true
-    );
+    const res = await getAreaCascadeListData(params);
     if (res.serviceSuccess) {
       console.log(res);
       const areaCodeList = res.data.areaCodeList;
