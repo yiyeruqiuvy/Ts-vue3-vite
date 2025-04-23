@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2025-04-21 10:19:19
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-23 14:53:38
+ * @LastEditTime: 2025-04-23 15:21:56
 -->
 <template>
   <!-- <div class="count">props： {{ props.count }}</div> -->
@@ -12,8 +12,13 @@
 <script setup lang="ts" name="LjsnMap">
 // import publicMethod from '@/common/gis/js/map-public-method.js';
 import CesiumMethod from '@/common/gis/js/cesium-method.js'
+import CesiumTool from '@/common/gis/js/cesium-tool/cesium-tool.js'
+import CesiumToolBusiness from '@/common/gis/js/cesium-tool/cesium-tool-business.js'
+
 import { useRoute } from 'vue-router'
 import { onMounted, getCurrentInstance } from 'vue'
+import jlj from './img/嘉陵江.png'
+import cj from './img/长江.png'
 // import axios from 'axios';
 // ref
 const route = useRoute() // 组合式 API
@@ -326,8 +331,8 @@ const setCesiumMapPosition = function () {
  * @return {*}
  */
 const initCesiumMapCQ = function async() {
-  // window.CesiumTool = new CesiumTool();
-  // window.CesiumToolBusiness = new CesiumToolBusiness();
+  window.CesiumTool = new CesiumTool()
+  window.CesiumToolBusiness = new CesiumToolBusiness()
   // if (
   //   window.SJCesiumMethod &&
   //   window.SJCesiumMethod.imageryLayers.length > 0 &&
@@ -394,21 +399,41 @@ const initCesiumMapCQ = function async() {
   // 开启监听
   window.SJCesiumMethod.addMapListenr()
 }
+/**
+ * @Descripttion: 添加江名
+ * @return {*}
+ */
+const addJiang = function () {
+  window.SJCesiumMethod.AddClamptoGroundPolygon(
+    [106.579958, 29.571781, 106.589258, 29.576125],
+    (-60.0 / 180.0) * Math.PI,
+    cj
+  )
+  window.SJCesiumMethod.AddClamptoGroundPolygon(
+    [106.574525, 29.54747, 106.582152, 29.551938],
+    (10.0 / 180.0) * Math.PI,
+    cj
+  )
+  window.SJCesiumMethod.AddClamptoGroundPolygon(
+    [106.56318, 29.566296, 106.573144, 29.569108],
+    (-2.0 / 180.0) * Math.PI,
+    jlj
+  )
+}
 const _this = getCurrentInstance()
 console.log(_this, '_this')
+const sceneId = 'hyym'
 /**
  * @Descripttion: 加载配置点位
  * @return {*}
  */
 const addConfigPoints = () => {
   const t = setTimeout(() => {
-    // const _this = getCurrentInstance();
-    // console.log(_this, '_this');
-    // window.CesiumToolBusiness.addLayerAndOurPoint(this, this.sceneId)
-    // window.jjKey = {}
-    // window.jjKey._this = this
-    // window.jjKey._sceneId = this.sceneId
-    // this.addJiang()
+    window.CesiumToolBusiness.addLayerAndOurPoint(_this, sceneId)
+    window.jjKey = {}
+    window.jjKey._this = _this
+    window.jjKey._sceneId = sceneId
+    addJiang()
     clearTimeout(t)
   }, 5000)
 }

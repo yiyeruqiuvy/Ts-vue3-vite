@@ -3,13 +3,13 @@
  * @Author: peiqf
  * @Date: 2025-04-21 10:30:21
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 17:33:58
+ * @LastEditTime: 2025-04-23 15:24:57
  */
-import js from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
-import pluginVue from 'eslint-plugin-vue';
-import { defineConfig } from 'eslint/config';
+import js from '@eslint/js'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import pluginVue from 'eslint-plugin-vue'
+import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
   {
@@ -30,6 +30,8 @@ export default defineConfig([
       'no-useless-escape': 'off', // 允许使用转义字符
       'no-extra-boolean-cast': 'off',
       'no-loss-of-precision': 'off',
+      'no-dupe-keys': 'off',
+
       // semi: ['warn', 'never'], // 禁止尾部使用分号
       'no-undef': 'off',
       'no-console': 'warn', // 禁止出现console
@@ -120,4 +122,4 @@ export default defineConfig([
     files: ['**/*.vue'],
     languageOptions: { parserOptions: { parser: tseslint.parser } }
   }
-]);
+])

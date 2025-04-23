@@ -3,19 +3,24 @@
  * @Author: peiqf
  * @Date: 2024-03-18 21:22:02
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 16:17:02
+ * @LastEditTime: 2025-04-23 15:36:59
  */
-import { merge, debounce } from 'lodash';
-import axios from 'axios';
-import { commonUtits } from '@/utils/tool.js';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-this-alias */
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 
-import CesiumTool from './cesium-tool.js';
+import { merge, debounce } from 'lodash'
+import axios from 'axios'
+import { commonUtits } from '@/utils/tool.js'
+
+import CesiumTool from './cesium-tool.js'
 class CesiumToolBusiness {
   constructor() {
-    this.CesiumTool = new CesiumTool();
+    this.CesiumTool = new CesiumTool()
     // 我们撒点的配置
-    this.layerAndOurPointConfig = [];
-    this.getConfig();
+    this.layerAndOurPointConfig = []
+    this.getConfig()
   }
 
   /**
@@ -25,10 +30,11 @@ class CesiumToolBusiness {
   async getConfig() {
     const res = await commonUtits.getUrlPrefix({
       configCode: 'layerAndOurPonit'
-    });
-    if (res && res.serviceSuccess) {
-      const result = res.data.result || {};
-      this.layerAndOurPointConfig = JSON.parse(result.configValue || '{}');
+    })
+    // debugger
+    if (res && res.status === 200) {
+      const result = res.data.data.result || {}
+      this.layerAndOurPointConfig = JSON.parse(result.configValue || '{}')
     }
   }
 
@@ -43,12 +49,12 @@ class CesiumToolBusiness {
       if (mapOption.type === 'ownPoint' && mapOption.fun === 'window') {
         // window[mapOption.funName] &&
         //   window[mapOption.funName](mapOption.param, context)
-        this.addPointsByType(mapOption.param, context);
+        this.addPointsByType(mapOption.param, context)
       } else if (mapOption.type === 'ownPoint' && mapOption.fun === 'emit') {
-        context.$bus.emit(mapOption.funName, mapOption.params);
+        context.$bus.emit(mapOption.funName, mapOption.params)
       } else {
         // 默认arcgis
-        this.addArcgisLayerByOption(mapOption, context);
+        this.addArcgisLayerByOption(mapOption, context)
         // this.CesiumTool.addArcgisLayer(mapOption, context)
       }
     }
@@ -61,28 +67,28 @@ class CesiumToolBusiness {
    */
   addLayerAndOurPoint(context, sceneCode) {
     // debugger
-    const mapOption = this.layerAndOurPointConfig[sceneCode];
+    const mapOption = this.layerAndOurPointConfig[sceneCode]
     if (Array.isArray(mapOption) && mapOption.length) {
       mapOption.forEach((item) => {
-        this.startFn(item, context);
-      });
+        this.startFn(item, context)
+      })
       if (mapOption[0].center) {
         const coordinate = {
           isChangeHeight: true,
           lon: mapOption[0].center.longitude,
           lat: mapOption[0].center.latitude,
           h: mapOption[0].center.height
-        };
-        console.log(coordinate, 'coordinate');
+        }
+        console.log(coordinate, 'coordinate')
         // 延迟一会重新定位,确认初始定位动作完成
         const timer = setTimeout(() => {
-          window.SJCesiumMethod.viewerChange(coordinate);
-          clearTimeout(timer);
-        }, 2000);
+          window.SJCesiumMethod.viewerChange(coordinate)
+          clearTimeout(timer)
+        }, 2000)
       }
-      return;
+      return
     }
-    this.startFn(mapOption, context);
+    this.startFn(mapOption, context)
   }
 
   /**
@@ -93,16 +99,16 @@ class CesiumToolBusiness {
    */
 
   addArcgisLayerByOption(mapOption, context) {
-    let callBack = null;
+    let callBack = null
     callBack = {
       clickCallBack: (data) => {
         if (data.name !== 'biankuang') {
-          data.modalTitle = data.name + '信息';
-          this.handleCallback(data, context);
+          data.modalTitle = data.name + '信息'
+          this.handleCallback(data, context)
         }
       }
-    };
-    this.CesiumTool.addArcgisLayer(mapOption, callBack);
+    }
+    this.CesiumTool.addArcgisLayer(mapOption, callBack)
   }
 
   /**
@@ -116,18 +122,18 @@ class CesiumToolBusiness {
       // 所有类型撒点
       const resPoint = await commonUtits.getUrlPrefix({
         configCode: 'allTypePoint'
-      });
+      })
       if (resPoint) {
         const resPointData = JSON.parse(
-          resPoint.data.result.configValue || '{}'
-        );
+          resPoint.data.data.result.configValue || '{}'
+        )
         // commonUtits.queryPointByType()
         // console.log(resPointData, 'resPointData')
-        const typeDataList = resPointData[typeCode] || [];
+        const typeDataList = resPointData[typeCode] || []
         for (let i = 0; i < typeDataList.length; i++) {
           // 一类型的配置参数，allTypePoint中某一类
-          let typeData = typeDataList[i] || {};
-          typeData = this.handleTOFData(typeData);
+          let typeData = typeDataList[i] || {}
+          typeData = this.handleTOFData(typeData)
           const exampleData = {
             label: '高楼消防',
             configCode: 'glxf_point',
@@ -142,9 +148,9 @@ class CesiumToolBusiness {
             dataConfig: {
               type: 'config',
               configCode: 'glxf_point',
-              type: 'interface',
+              // type: 'interface',
               interfaceObject: 'queryPointByType',
-              interfaceObject: 'otherinterface',
+              // interfaceObject: 'otherinterface',
               interfaceURL: 'statistics/comprehensiveScreen/queryPointByType'
             },
             modalConfig: {
@@ -158,16 +164,16 @@ class CesiumToolBusiness {
                 height: 100
               }
             }
-          };
+          }
           // 顶部文字label
-          const ifAddText = typeData?.ifAddText ? typeData.ifAddText : false;
+          const ifAddText = typeData?.ifAddText ? typeData.ifAddText : false
           // 点击撒点自动定位
           const ifAutoPosition = typeData?.ifAutoPosition
             ? typeData.ifAutoPosition
-            : false;
+            : false
 
           // 数据相关，获取撒点数据
-          let data = [];
+          let data = []
           // ·····························
           // 数据 系统参数配置  新的  兼容老的
           if (!!typeData.dataConfig) {
@@ -175,8 +181,8 @@ class CesiumToolBusiness {
             if (typeData.dataConfig.type === 'config') {
               const res = await commonUtits.getUrlPrefix({
                 configCode: typeData.configCode
-              });
-              data = JSON.parse(res.data.result.configValue || '{}');
+              })
+              data = JSON.parse(res.data.data.result.configValue || '{}')
             }
 
             // 接口撒点
@@ -187,9 +193,9 @@ class CesiumToolBusiness {
                 const res = await commonUtits.queryPointByType({
                   pointType:
                     typeData.configCode || typeData.dataConfig.configCode
-                });
+                })
                 if (res.serviceSuccess) {
-                  data = res.data.pointData;
+                  data = res.data.pointData
                 }
               }
               // 单独的撒点接口
@@ -202,10 +208,10 @@ class CesiumToolBusiness {
                       typeData.configCode || typeData.dataConfig.configCode
                   },
                   typeData.dataConfig.interfaceURL
-                );
+                )
                 // 暂定result
                 if (res.serviceSuccess) {
-                  data = res.data.pointData;
+                  data = res.data.pointData
                 }
               }
             }
@@ -214,13 +220,13 @@ class CesiumToolBusiness {
             // 根据取到的configCode 查询撒点数据
             const res = await commonUtits.getUrlPrefix({
               configCode: typeData.configCode
-            });
-            data = JSON.parse(res.data.result.configValue || '{}');
+            })
+            data = JSON.parse(res.data.data.result.configValue || '{}')
             if (typeData?.isInterface) {
               const res1 = await commonUtits.queryPointByType({
                 pointType: typeData.configCode
-              });
-              data = res1.data.pointData;
+              })
+              data = res1.data.pointData
               // 暂时前端处理， 4.1将删掉这个逻辑，后端将数据删除
               // data.forEach((item, idx) => {
               //   // 去掉一个
@@ -240,8 +246,8 @@ class CesiumToolBusiness {
           const pointClassInfo = {
             // label: typeData.label,
             ...typeData
-          };
-          let callBack = null;
+          }
+          let callBack = null
 
           // 弹窗相关 兼容老的
           // debugger
@@ -251,22 +257,22 @@ class CesiumToolBusiness {
           ) {
             callBack = {
               clickCallBack: (data) => {
-                const geometry = data.id.geometry;
-                const modalData = ['曾家岩', '黄花园', '妙泉入口'];
+                const geometry = data.id.geometry
+                const modalData = ['曾家岩', '黄花园', '妙泉入口']
                 for (let i = 0; i < modalData.length; i++) {
                   if (data.id.pointData?.name.indexOf(modalData[i]) > -1) {
                     context.$bus.$emit('openRiskDetailModal', {
                       data: data.id.pointData,
                       modalTitle: pointClassInfo.label + '详情'
-                    });
-                    return;
+                    })
+                    return
                   }
                 }
-                console.log(data.id.modalData, 'callBackdata');
+                console.log(data.id.modalData, 'callBackdata')
                 context.$bus.$emit(typeData.modalObject, {
                   data: data.id.modalData,
                   modalTitle: pointClassInfo.label + '详情'
-                });
+                })
                 if (
                   data.id.pointData?.ifAutoPosition &&
                   data.id.pointData?.ifAutoPosition === true
@@ -274,23 +280,23 @@ class CesiumToolBusiness {
                   window.SJCesiumMethod.viewerChange({
                     lon: geometry.x,
                     lat: geometry.y
-                  });
+                  })
                 } else if (ifAutoPosition) {
                   window.SJCesiumMethod.viewerChange({
                     lon: geometry.x,
                     lat: geometry.y
-                  });
+                  })
                 }
               }
-            };
+            }
           } else if (
             typeData.modalType === 'IFRAME' ||
             typeData.modalConfig.modalType === 'IFRAME'
           ) {
             callBack = {
               clickCallBack: (data) => {
-                const geometry = data.id.geometry;
-                console.log(data.id.modalData, 'callBackdata');
+                const geometry = data.id.geometry
+                console.log(data.id.modalData, 'callBackdata')
                 // this.$bus.$emit(typeData.modalObject, {
                 //   data: data.id.modalData,
                 //   modalTitle: pointClassInfo.label + '详情'
@@ -299,27 +305,27 @@ class CesiumToolBusiness {
                   lat: geometry.y,
                   lon: geometry.x,
                   h: 3000
-                };
+                }
                 // window.SJCesiumMethod.viewerChange(coordinate)
               }
-            };
+            }
           } else if (
             typeData.modalType === 'EMIT_FXDW' ||
             typeData.modalConfig.modalType === 'EMIT_FXDW'
           ) {
             callBack = {
               clickCallBack: (data) => {
-                const geometry = data.id.geometry;
-                const modalData = ['洪崖洞', '黄花园', '妙泉'];
+                const geometry = data.id.geometry
+                const modalData = ['洪崖洞', '黄花园', '妙泉']
                 for (let i = 0; i < modalData.length; i++) {
                   if (data.id.pointData?.name.indexOf(modalData[i]) > -1) {
                     context.$bus.$emit(typeData.modalObject, {
                       data: data.id.pointData,
                       modalTitle: pointClassInfo.label + '详情'
-                    });
+                    })
                   }
                 }
-                console.log(data.id.pointData, 'callBackdata');
+                console.log(data.id.pointData, 'callBackdata')
 
                 if (
                   data.id.pointData?.ifAutoPosition &&
@@ -328,23 +334,23 @@ class CesiumToolBusiness {
                   window.SJCesiumMethod.viewerChange({
                     lon: geometry.x,
                     lat: geometry.y
-                  });
+                  })
                 } else if (ifAutoPosition) {
                   window.SJCesiumMethod.viewerChange({
                     lon: geometry.x,
                     lat: geometry.y
-                  });
+                  })
                 }
               }
-            };
+            }
           }
-          console.log(data, '撒点数据');
+          console.log(data, '撒点数据')
           this.CesiumTool.addBatchPoints(
             pointClassInfo,
             data,
             callBack,
             ifAddText
-          );
+          )
         }
       }
     }
@@ -356,15 +362,15 @@ class CesiumToolBusiness {
    * @return {*}
    */
   handleCallback(data, context) {
-    if (data.name === 'biankuang') return;
+    if (data.name === 'biankuang') return
     // debugger
     if (data.name === '郭家沱街道建筑物') {
       context.$bus.$emit('openOneStandard', {
         buildingId: data.data.ID
-      });
+      })
     } else if (data.name === '气象服务') {
       // 气象服务弹窗
-      context.$bus.$emit('openRainfallModal', data);
+      context.$bus.$emit('openRainfallModal', data)
     } else {
       // 强降雨大屏 弹窗
       // console.log(context.$refs, data, 'context')
@@ -375,11 +381,11 @@ class CesiumToolBusiness {
           data.data['设备类型']
         )
       ) {
-        data.isCamera = true;
+        data.isCamera = true
       } else {
-        data.isCamera = false;
+        data.isCamera = false
       }
-      context.$bus.$emit('openArcgisModal', data);
+      context.$bus.$emit('openArcgisModal', data)
     }
   }
 
@@ -392,12 +398,12 @@ class CesiumToolBusiness {
     // debugger
     Object.keys(data).forEach((item) => {
       if (data[item] === 'true') {
-        data[item] = true;
+        data[item] = true
       } else if (data[item] === 'false') {
-        data[item] = false;
+        data[item] = false
       }
-    });
-    return data;
+    })
+    return data
   }
 
   /**
@@ -409,30 +415,30 @@ class CesiumToolBusiness {
     // debugger
     // 撒点
     if (select.isSelect) {
-      console.log(select, '撒点');
+      console.log(select, '撒点')
       if (!!select.catalogueType && select.catalogueType === 'WMS') {
-        this.addWmsLayers(select);
+        this.addWmsLayers(select)
       } else if (!!select.catalogueType && select.catalogueType === 'SINGLE') {
-        this.addSingleLayers(select);
+        this.addSingleLayers(select)
       } else if (!!select.catalogueType && select.catalogueType === 'IMG') {
-        this.addSingleLayer(select);
+        this.addSingleLayer(select)
       } else if (!!select.catalogueType && select.catalogueType === 'POINT') {
-        this.switchPointLayer(select);
+        this.switchPointLayer(select)
       } else {
-        this.addArcgisLayer(select);
+        this.addArcgisLayer(select)
       }
     }
     // 删除
     else {
-      console.log(select, '删除');
+      console.log(select, '删除')
       // 自己撒点的删除
       if (!!select.catalogueType && select.catalogueType === 'POINT') {
         // 删除
         if (this.pointsList[select.label].length > 0) {
           this.pointsList[select.label].forEach((item) => {
             // console.log('删除撒点',item)
-            window.SJCesiumMethod.deleteEntities(item);
-          });
+            window.SJCesiumMethod.deleteEntities(item)
+          })
         }
       }
       // arcgis撒点的除
@@ -440,11 +446,11 @@ class CesiumToolBusiness {
         // 多个
         if (select.children && select.children.length > 0) {
           select.children.forEach((item) => {
-            window.SJCesiumMethod.removeArcgisImageryLayer(item.label);
-          });
+            window.SJCesiumMethod.removeArcgisImageryLayer(item.label)
+          })
           // 单个
         } else {
-          window.SJCesiumMethod.removeArcgisImageryLayer(select.label);
+          window.SJCesiumMethod.removeArcgisImageryLayer(select.label)
         }
       }
     }
@@ -452,4 +458,4 @@ class CesiumToolBusiness {
     // this.getEventWarnPoints(this.mapLegendData[0])
   }
 }
-export default CesiumToolBusiness;
+export default CesiumToolBusiness

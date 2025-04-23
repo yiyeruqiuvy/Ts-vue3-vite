@@ -2,7 +2,7 @@
  * @Author: NIXY
  * @LastEditors: peiqf
  * @Date: 2023-04-10 17:11:29
- * @LastEditTime: 2025-04-22 09:22:24
+ * @LastEditTime: 2025-04-23 15:15:48
  * @Description: desc
  * @FilePath: \cqGit\src\scopes\project\bigScreen\common\utils\utils.js
  */
@@ -13,58 +13,59 @@
 /* eslint-disable @typescript-eslint/no-array-constructor */
 
 // 检验身份证时推荐使用isIdCardNo方法进行验证（使用此方法校验510104201811076116身份证号时提示校验不通过）
-import $ from 'jquery';
-import axios from 'axios';
-const basePath = 'http://23.210.52.54:28081/cockpit/api';
+import $ from 'jquery'
+import axios from 'axios'
+const basePath = 'http://23.210.52.54:18081/cockpit/api'
+import { getBaseConfigData } from '@/apis/index.ts'
 const commonUtits = {
   isEmpty(val) {
     if (val === '' || val === undefined || val === null) {
-      return true;
+      return true
     }
-    return false;
+    return false
   },
   createPoller(callback, interval = 5000) {
     // 定时轮询
-    let timeoutId = null; // 用于存储当前setTimeout的标识符
-    let isRunning = false;
+    let timeoutId = null // 用于存储当前setTimeout的标识符
+    let isRunning = false
 
     async function startPolling() {
       if (!isRunning) {
-        isRunning = true;
+        isRunning = true
         try {
           // 立即执行一次回调
-          await callback();
+          await callback()
           // 然后设置setTimeout来安排后续的轮询
           if (timeoutId !== null) {
-            clearTimeout(timeoutId);
-            timeoutId = null;
+            clearTimeout(timeoutId)
+            timeoutId = null
           }
-          timeoutId = setTimeout(poll, interval);
+          timeoutId = setTimeout(poll, interval)
         } catch (error) {
-          stopPolling();
+          stopPolling()
         }
       }
     }
 
     function stopPolling() {
-      isRunning = false;
+      isRunning = false
       if (timeoutId !== null) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
+        clearTimeout(timeoutId)
+        timeoutId = null
       }
     }
 
     async function poll() {
       if (isRunning) {
         try {
-          await callback();
+          await callback()
           if (timeoutId !== null) {
-            clearTimeout(timeoutId);
-            timeoutId = null;
+            clearTimeout(timeoutId)
+            timeoutId = null
           }
-          timeoutId = setTimeout(poll, interval);
+          timeoutId = setTimeout(poll, interval)
         } catch (error) {
-          stopPolling();
+          stopPolling()
         }
         // 设置新的setTimeout，但这次不直接调用poll，而是让setTimeout来调用
       }
@@ -73,7 +74,7 @@ const commonUtits = {
     return {
       start: startPolling,
       stop: stopPolling
-    };
+    }
   },
   /**
    * 格式化日期
@@ -88,12 +89,12 @@ const commonUtits = {
       m: date.getMinutes(), // 分
       s: date.getSeconds(), // 秒
       q: Math.floor((date.getMonth() + 3) / 3) // 季度
-    };
+    }
     if (/(y+)/.test(format)) {
       format = format.replace(
         RegExp.$1,
         (date.getFullYear() + '').substr(4 - RegExp.$1.length)
-      );
+      )
     }
     for (const k in o) {
       if (new RegExp('(' + k + '+)').test(format)) {
@@ -102,10 +103,10 @@ const commonUtits = {
           RegExp.$1.length === 1
             ? o[k]
             : ('00' + o[k]).substr(('' + o[k]).length)
-        );
+        )
       }
     }
-    return format;
+    return format
   },
   /**
    * 验证是否为18位或者15位身份证号码
@@ -150,44 +151,44 @@ const commonUtits = {
       81: '香港',
       82: '澳门',
       91: '国外'
-    };
-    let pass = true;
+    }
+    let pass = true
     if (
       !value ||
       !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(
         value
       )
     ) {
-      pass = false;
+      pass = false
     } else if (!city[value.substr(0, 2)]) {
-      pass = false;
+      pass = false
     } else {
       // 18位身份证需要验证最后一位校验位
       if (value.length === 18) {
-        const valueArr = value.split('');
+        const valueArr = value.split('')
         // ∑(ai×Wi)(mod 11)
         // 加权因子
-        const factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+        const factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
         // 校验位
-        const parity = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
-        let sum = 0;
-        let ai = 0;
-        let wi = 0;
+        const parity = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2']
+        let sum = 0
+        let ai = 0
+        let wi = 0
         for (let i = 0; i < 17; i++) {
-          ai = valueArr[i];
-          wi = factor[i];
-          sum += ai * wi;
+          ai = valueArr[i]
+          wi = factor[i]
+          sum += ai * wi
         }
         // 最后一位不区分大小写
         if (valueArr[17] === 'x') {
-          valueArr[17] = valueArr[17].toUpperCase();
+          valueArr[17] = valueArr[17].toUpperCase()
         }
         if (parity[sum % 11] !== valueArr[17]) {
-          pass = false;
+          pass = false
         }
       }
     }
-    return pass;
+    return pass
   },
   /**
    * 社会信用代码
@@ -197,11 +198,11 @@ const commonUtits = {
    */
   fnSocialCreditCode(rule, value, callback) {
     if (!value) {
-      callback();
-      return;
+      callback()
+      return
     }
-    const pa = /^[1-9ABCDEFGY][1239][0-9]{6}[0-9A-Z]{9}[0-9A-Z]$/;
-    const wi = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28];
+    const pa = /^[1-9ABCDEFGY][1239][0-9]{6}[0-9A-Z]{9}[0-9A-Z]$/
+    const wi = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28]
     const zi = {
       0: 0,
       1: 1,
@@ -234,7 +235,7 @@ const commonUtits = {
       W: 28,
       X: 29,
       Y: 30
-    };
+    }
     const ziArr = [
       '0',
       '1',
@@ -267,21 +268,21 @@ const commonUtits = {
       'W',
       'X',
       'Y'
-    ];
+    ]
     if (value && value !== '' && !pa.test(value)) {
-      callback('统一社会信用代码格式错误');
-      return;
+      callback('统一社会信用代码格式错误')
+      return
     }
-    const arr = value.toUpperCase().split('');
-    let sum = 0;
+    const arr = value.toUpperCase().split('')
+    let sum = 0
     for (let i = 0; i < arr.length - 1; i++) {
-      sum += wi[i] * zi[arr[i]];
+      sum += wi[i] * zi[arr[i]]
     }
-    const res = 31 - (sum % 31);
+    const res = 31 - (sum % 31)
     if (arr[17] !== ziArr[res]) {
-      callback('统一社会信用代码格式错误');
+      callback('统一社会信用代码格式错误')
     } else {
-      callback();
+      callback()
     }
   },
   /**
@@ -292,15 +293,15 @@ const commonUtits = {
    */
   socialCreditCode(rule, value, callback) {
     if (!value) {
-      callback();
-      return;
+      callback()
+      return
     }
-    const reg = /^[a-zA-Z0-9]{0,18}$/;
+    const reg = /^[a-zA-Z0-9]{0,18}$/
     if (value && value !== '' && !reg.test(value)) {
-      callback('统一社会信用代码格式错误');
-      return;
+      callback('统一社会信用代码格式错误')
+      return
     }
-    callback();
+    callback()
   },
   /**
    * 身份证验证 + 校验位
@@ -346,14 +347,14 @@ const commonUtits = {
       81: '81',
       82: '82',
       91: '91'
-    };
-    var idcard, Y, JYM;
-    let S, M;
-    let idcard_array = new Array();
-    idcard_array = idcard.split('');
-    let ereg = null;
+    }
+    var idcard, Y, JYM
+    let S, M
+    let idcard_array = new Array()
+    idcard_array = idcard.split('')
+    let ereg = null
     if (area[parseInt(idcard.substr(0, 2))] == null) {
-      return false;
+      return false
     }
     switch (idcard.length) {
       case 15:
@@ -363,15 +364,15 @@ const commonUtits = {
             (parseInt(idcard.substr(6, 2)) + 1900) % 4 == 0)
         ) {
           ereg =
-            /^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}$/;
+            /^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}$/
         } else {
           ereg =
-            /^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}$/;
+            /^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}$/
         }
         if (ereg.test(idcard)) {
-          return true;
+          return true
         }
-        return false;
+        return false
 
       case 18:
         if (
@@ -380,10 +381,10 @@ const commonUtits = {
             parseInt(idcard.substr(6, 4)) % 4 == 0)
         ) {
           ereg =
-            /^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}[0-9Xx]$/;
+            /^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}[0-9Xx]$/
         } else {
           ereg =
-            /^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}[0-9Xx]$/;
+            /^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}[0-9Xx]$/
         }
         if (ereg.test(idcard)) {
           S =
@@ -396,20 +397,20 @@ const commonUtits = {
             (parseInt(idcard_array[6]) + parseInt(idcard_array[16])) * 2 +
             parseInt(idcard_array[7]) * 1 +
             parseInt(idcard_array[8]) * 6 +
-            parseInt(idcard_array[9]) * 3;
-          Y = S % 11;
-          M = 'F';
-          JYM = '10X98765432';
-          M = JYM.substr(Y, 1);
+            parseInt(idcard_array[9]) * 3
+          Y = S % 11
+          M = 'F'
+          JYM = '10X98765432'
+          M = JYM.substr(Y, 1)
           if (M == idcard_array[17]) {
-            return true;
+            return true
           }
-          return false;
+          return false
         }
-        return false;
+        return false
 
       default:
-        return false;
+        return false
     }
   },
   /**
@@ -423,11 +424,11 @@ const commonUtits = {
    * 17开头的手机号后面除9外都有
    */
   isMobileNo: function (value) {
-    const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+    const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
     if (reg.test(value)) {
-      return true;
+      return true
     }
-    return false;
+    return false
   },
   /**
    * 正则验证是否为手机号码：11位
@@ -439,11 +440,11 @@ const commonUtits = {
    * @returns {boolean}
    */
   isEmail: function (value) {
-    const reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    const reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
     if (reg.test(value)) {
-      return true;
+      return true
     }
-    return false;
+    return false
   },
   /**
    * 验证是否为邮箱号码
@@ -462,11 +463,11 @@ const commonUtits = {
    */
   isCreditCode: function (value) {
     const reg =
-      /^([0-9ABCDEFGHJKLMNPQRTUWXY]{2})([0-9]{6})([0-9ABCDEFGHJKLMNPQRTUWXY]{10})$/;
+      /^([0-9ABCDEFGHJKLMNPQRTUWXY]{2})([0-9]{6})([0-9ABCDEFGHJKLMNPQRTUWXY]{10})$/
     if (reg.test(value.toUpperCase())) {
-      return true;
+      return true
     }
-    return false;
+    return false
   },
   /**
    * 统一社会信用代码验证
@@ -474,11 +475,11 @@ const commonUtits = {
    * @returns {boolean}
    */
   socialCode: function (value) {
-    const reg = /[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}/;
+    const reg = /[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}/
     if (reg.test(value.toUpperCase())) {
-      return true;
+      return true
     }
-    return false;
+    return false
   },
   /**
    * 验证数字，最多两位小数
@@ -487,13 +488,13 @@ const commonUtits = {
    */
   floatFixTwo: function (value) {
     if (!value) {
-      return false;
+      return false
     }
-    const reg = /^(-?\d+)(\.\d{1,4})?$/;
+    const reg = /^(-?\d+)(\.\d{1,4})?$/
     if (reg.test(value.trim())) {
-      return true;
+      return true
     }
-    return false;
+    return false
   },
   /**
    * 获取字符串长度，中文2个，英文1个
@@ -501,33 +502,33 @@ const commonUtits = {
    * @returns {String}
    */
   getStringLen: function (str) {
-    let len = 0;
+    let len = 0
     for (let i = 0; i < str.length; i++) {
-      str.charCodeAt(i) > 255 ? (len += 2) : (len += 1);
+      str.charCodeAt(i) > 255 ? (len += 2) : (len += 1)
     }
-    return len;
+    return len
   },
   /**
    * 根据id获取当前在tree中的数据项
    */
   getTreeDataById(leafId, nodes, path) {
     if (path === undefined) {
-      path = {};
+      path = {}
     }
     for (let i = 0; i < nodes.length; i++) {
-      let tmpPath = path;
+      let tmpPath = path
       if (leafId === nodes[i].id) {
-        tmpPath = nodes[i];
-        return tmpPath;
+        tmpPath = nodes[i]
+        return tmpPath
       }
       if (nodes[i].children) {
         const findResult = this.getTreeDataById(
           leafId,
           nodes[i].children,
           tmpPath
-        );
+        )
         if (findResult) {
-          return findResult;
+          return findResult
         }
       }
     }
@@ -638,34 +639,34 @@ const commonUtits = {
    * @param {*} item 包含地址区域的对象
    */
   getAddressAreaCode: function (item) {
-    const user = top.indexTool.getUserInfo();
-    const areaLevel = user.areaLevel;
-    let addressAreaCode = '';
+    const user = top.indexTool.getUserInfo()
+    const areaLevel = user.areaLevel
+    let addressAreaCode = ''
     switch (areaLevel) {
       case '-1': // 国家级
-        break;
+        break
       case '0': // 省级
-        addressAreaCode = item.belongProvince;
-        break;
+        addressAreaCode = item.belongProvince
+        break
       case '1': // 市级
-        addressAreaCode = item.belongCity;
-        break;
+        addressAreaCode = item.belongCity
+        break
       case '2': // 区级
-        addressAreaCode = item.belongCounty;
-        break;
+        addressAreaCode = item.belongCounty
+        break
       case '3': // 街道级
-        addressAreaCode = item.belongStreet;
-        break;
+        addressAreaCode = item.belongStreet
+        break
       case '4': // 社区级
-        addressAreaCode = item.belongCommunity;
-        break;
+        addressAreaCode = item.belongCommunity
+        break
       case '5': // 网格
-        addressAreaCode = item.belongGrid;
-        break;
+        addressAreaCode = item.belongGrid
+        break
       default:
-        break;
+        break
     }
-    return addressAreaCode;
+    return addressAreaCode
   },
   /**
    * 身份证最后一位x修改为大写X
@@ -673,26 +674,26 @@ const commonUtits = {
    */
   toUpperCaseIdcard: function (idNumber) {
     if (idNumber) {
-      let strid = idNumber;
-      const strX = idNumber.charAt(idNumber.length - 1);
-      const str = idNumber.slice(0, idNumber.length - 1);
+      let strid = idNumber
+      const strX = idNumber.charAt(idNumber.length - 1)
+      const str = idNumber.slice(0, idNumber.length - 1)
       if (idNumber.length === 18 && strX === 'x') {
-        strid = str + idNumber.charAt(idNumber.length - 1).toUpperCase();
+        strid = str + idNumber.charAt(idNumber.length - 1).toUpperCase()
       }
-      return strid;
+      return strid
     }
   },
   /**
    * 得到当前年月日
    */
   currentData: function () {
-    const newDatas = new Date();
-    let newDatastr = '';
-    newDatastr += newDatas.getFullYear() + '年'; // 获取当前年份
-    newDatastr += newDatas.getMonth() + 1 + '月'; // 获取当前月份
-    newDatastr += newDatas.getDate() + '日';
-    newDatastr += newDatas.getHours() + '时';
-    return newDatastr;
+    const newDatas = new Date()
+    let newDatastr = ''
+    newDatastr += newDatas.getFullYear() + '年' // 获取当前年份
+    newDatastr += newDatas.getMonth() + 1 + '月' // 获取当前月份
+    newDatastr += newDatas.getDate() + '日'
+    newDatastr += newDatas.getHours() + '时'
+    return newDatastr
   },
   /**
    * escapeHtml() 解决把后台返回数据解析到HTML页面上时, 特殊字符无法被识别
@@ -716,13 +717,13 @@ const commonUtits = {
       hellip: '^',
       '#xff5e': '¥',
       yen: '￥'
-    };
+    }
     return str.replace(
       /&(lt|gt|nbsp|amp|quot|#xa|#x7e|#x5c|#x5e|#x60|#x7c|mdash|hellip|#xff5e|yen);/gi,
       function (all, t) {
-        return arrEntities[t];
+        return arrEntities[t]
       }
-    );
+    )
   },
   /**
    * 判断是否为车牌号(新能源+非新能源)
@@ -738,39 +739,39 @@ const commonUtits = {
    */
   compare(prop) {
     return function (obj1, obj2) {
-      let val1 = obj1[prop];
-      let val2 = obj2[prop];
+      let val1 = obj1[prop]
+      let val2 = obj2[prop]
       if (!isNaN(Number(val1)) && !isNaN(Number(val2))) {
-        val1 = Number(val1);
-        val2 = Number(val2);
+        val1 = Number(val1)
+        val2 = Number(val2)
       }
       if (val1 < val2) {
-        return 1;
+        return 1
       } else if (val1 > val2) {
-        return -1;
+        return -1
       }
-      return 0;
-    };
+      return 0
+    }
   },
   /*
    * 地址栏参数转换成对象,并存到本地localStorage
    */
   locationParams2obj() {
-    let str = location.href;
-    str = decodeURIComponent(str);
+    let str = location.href
+    str = decodeURIComponent(str)
     if (!str.split('?')[1]) {
       // 如果地址栏没有参数，代表刷新了页面
-      return JSON.parse(localStorage.getItem('userInfo'));
+      return JSON.parse(localStorage.getItem('userInfo'))
     }
-    const arr = str.split('?')[1].split('&');
-    const res = {};
+    const arr = str.split('?')[1].split('&')
+    const res = {}
     arr.forEach((item) => {
-      const temp = item.split('=');
-      res[temp[0]] = temp[1];
-    });
+      const temp = item.split('=')
+      res[temp[0]] = temp[1]
+    })
     // 第一次进来存到localstorage里面
-    localStorage.setItem('userInfo', JSON.stringify(res));
-    return res;
+    localStorage.setItem('userInfo', JSON.stringify(res))
+    return res
   },
   /**
    * 防抖函数
@@ -780,13 +781,13 @@ const commonUtits = {
    */
   debounce(fun, delay) {
     return function (args) {
-      const that = this;
-      const _args = args;
-      clearTimeout(fun.id);
+      const that = this
+      const _args = args
+      clearTimeout(fun.id)
       fun.id = setTimeout(function () {
-        fun.call(that, _args);
-      }, delay);
-    };
+        fun.call(that, _args)
+      }, delay)
+    }
   },
   /**
    * 获取配置参数
@@ -794,7 +795,7 @@ const commonUtits = {
    * @param {*} callback
    */
   getUrlPrefix(param, callback) {
-    return axios.post(basePath, param);
+    return getBaseConfigData(param)
   },
 
   /**
@@ -813,7 +814,7 @@ const commonUtits = {
       },
       null,
       true
-    );
+    )
   },
 
   /**
@@ -825,12 +826,12 @@ const commonUtits = {
     const clientWidth =
       window.innerWidth ||
       document.documentElement.clientWidth ||
-      document.body.clientWidth;
+      document.body.clientWidth
     if (!clientWidth) {
-      return;
+      return
     }
-    const fontSize = clientWidth / 1920;
-    return res * fontSize;
+    const fontSize = clientWidth / 1920
+    return res * fontSize
   },
   /**
    * 查询地图导入点位
@@ -848,7 +849,7 @@ const commonUtits = {
       },
       {},
       true
-    );
+    )
   },
   /**
    * 根据方法名查询接口数据
@@ -867,7 +868,7 @@ const commonUtits = {
       },
       {},
       true
-    );
+    )
   },
   /**
    * @Function 拼接地址参数
@@ -875,12 +876,12 @@ const commonUtits = {
    * @return {}
    **/
   spellUrl(param) {
-    const path1 = window.faceConfig.basePath.split('//');
-    const path2 = path1[1].split('/');
-    const urlHead = path1[0] + '//' + path2[0] + '/cockpit'; // 服务器地址
+    const path1 = window.faceConfig.basePath.split('//')
+    const path2 = path1[1].split('/')
+    const urlHead = path1[0] + '//' + path2[0] + '/cockpit' // 服务器地址
     // const urlHead = 'http://172.18.57.99:8080'  // 本地地址
-    const tk = TaUtils.getCookie(faceConfig.basePath + 'TA-JTOKEN');
-    window.location.href = `${urlHead}${param}&tk=${tk}`;
+    const tk = TaUtils.getCookie(faceConfig.basePath + 'TA-JTOKEN')
+    window.location.href = `${urlHead}${param}&tk=${tk}`
   },
   /**
    * @Function 修改页面尺寸，注意页面建议不要使用rem或者固定为最大不要为100px
@@ -889,15 +890,15 @@ const commonUtits = {
    **/
   pageScale(pageDeisgnW) {
     // const docEl = doc.documentElement
-    const docEl = document.querySelector('html');
-    docEl.style.fontSize = '100px';
-    modifyPageScale();
+    const docEl = document.querySelector('html')
+    docEl.style.fontSize = '100px'
+    modifyPageScale()
     function modifyPageScale() {
-      const getH = $(window).height();
-      const scaleX = getH / pageDeisgnW;
+      const getH = $(window).height()
+      const scaleX = getH / pageDeisgnW
       $('body').css({
         background: '#000'
-      });
+      })
       $('#app').css({
         width: '1920px',
         height: '1080px',
@@ -906,9 +907,9 @@ const commonUtits = {
         position: 'absolute',
         left: '50%',
         overflow: 'hidden'
-      });
+      })
     }
-    window.addEventListener('resize', modifyPageScale);
+    window.addEventListener('resize', modifyPageScale)
   },
   queryCenterPointByCode(params) {
     return Base.submit(
@@ -921,7 +922,7 @@ const commonUtits = {
       },
       {},
       true
-    );
+    )
   },
   /**
    * 把一个对象拼接成浏览器地址参数
@@ -930,13 +931,13 @@ const commonUtits = {
    * @return  {String}  地址栏最终拼成的参数
    */
   objToParams(obj, excludeKey) {
-    let param = '';
+    let param = ''
     for (const key in obj) {
       if (!excludeKey.includes(key) && param.indexOf(key) === -1 && obj[key]) {
-        param = param + `&${key}=${obj[key]}`;
+        param = param + `&${key}=${obj[key]}`
       }
     }
-    return param;
+    return param
   },
   /**
    * @Function 浏览器拉起音视频会议
@@ -946,11 +947,11 @@ const commonUtits = {
   openBrowser(field10, isVideoConference) {
     // 他们会传一个空的数组，当数组有值的时候才会去添加一个空的发起人
     if (field10.length) {
-      field10.unshift('');
+      field10.unshift('')
     }
     // title=${title}&
-    const str = field10.toString();
-    window.location.href = `taurusykz://taurusclient/action/avmeeting/conferenceCreateByIds?isVideoConference=true&calleeStaffIds=[${str}]`;
+    const str = field10.toString()
+    window.location.href = `taurusykz://taurusclient/action/avmeeting/conferenceCreateByIds?isVideoConference=true&calleeStaffIds=[${str}]`
   },
   /**
    * @Function 打开掌上指挥
@@ -958,9 +959,9 @@ const commonUtits = {
    *
    */
   openZSZH(iframUrl) {
-    const changeUrl = encodeURIComponent(iframUrl);
-    const url = `taurusykz://taurusclient/page/link?container_type=web_wnd&bShowHeader=true&width=1920&height=1080&url=${changeUrl}`;
-    top.window.open(url, '_self') || window.open(url, '_self');
+    const changeUrl = encodeURIComponent(iframUrl)
+    const url = `taurusykz://taurusclient/page/link?container_type=web_wnd&bShowHeader=true&width=1920&height=1080&url=${changeUrl}`
+    top.window.open(url, '_self') || window.open(url, '_self')
   },
   /**
    * @Function ding一下
@@ -968,7 +969,7 @@ const commonUtits = {
    *
    */
   handleDing() {
-    window.location.href = 'taurusykz://taurusclient/action/ding/list';
+    window.location.href = 'taurusykz://taurusclient/action/ding/list'
   },
   /**
    * 判断是否是手机愉快政打开
@@ -976,6 +977,6 @@ const commonUtits = {
   isMobileYZK:
     /TaurusApp/.test(window.navigator.userAgent) &&
     /chongqing/.test(window.navigator.userAgent)
-};
+}
 
-export { commonUtits };
+export { commonUtits }
