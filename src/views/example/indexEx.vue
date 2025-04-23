@@ -3,27 +3,27 @@
  * @Author: peiqf
  * @Date: 2022-12-19 15:37:11
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-21 15:35:35
+ * @LastEditTime: 2025-04-23 17:03:22
 -->
 <script setup lang="ts">
 // 引入store
 // name:'index',
-import { useStore } from '@/store/countStore.ts';
-import { ref } from 'vue';
+import { useStore } from '@/store/countStore'
+import { ref } from 'vue'
 
 // 引入子组件 无需注册无需return直接使用
-import ChildCmp from './ChildEx.vue';
+import ChildCmp from './ChildEx.vue'
 
 // 定义一个数字传递给子组件,同样无需return,直接使用
-const count = ref<number>(9);
+const count = ref<number>(9)
 // 使用store
-const count2 = useStore();
+const count2 = useStore()
 
 // 事件
 // 接收子组件传递的数据
-const receive = (val) => {
-  console.log('接收子组件的数据', val);
-};
+const receive = (val: string) => {
+  console.log('接收子组件的数据', val)
+}
 </script>
 
 <template>

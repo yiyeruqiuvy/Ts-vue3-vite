@@ -3,15 +3,15 @@
  * @Author: peiqf
  * @Date: 2022-12-19 15:37:11
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-22 17:38:02
+ * @LastEditTime: 2025-04-23 17:13:32
  */
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import eslint from 'vite-plugin-eslint';
-import path from 'path';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import eslint from 'vite-plugin-eslint'
+import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -26,6 +26,19 @@ export default defineConfig({
       include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue']
     })
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: './index.html'
+        // 其他入口文件
+      },
+      output: {
+        chunkFileNames: 'static/js/[name]-[hash].js',
+        entryFileNames: 'static/js/[name]-[hash].js',
+        assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
@@ -52,4 +65,4 @@ export default defineConfig({
       }
     }
   }
-});
+})
