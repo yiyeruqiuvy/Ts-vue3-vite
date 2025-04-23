@@ -1,59 +1,37 @@
 <!--
- * @Author: wangting
+ * @Descripttion: 标题组件
+ * @Author: peiqf
+ * @Date: 2025-04-23 15:40:20
  * @LastEditors: peiqf
- * @Date: 2023-02-21 14:12:30
- * @LastEditTime: 2025-04-23 15:47:12
- * @Description: desc
- * @FilePath: \cqGit\src\scopes\project\bigScreen\common\components\base-head\index.vue
+ * @LastEditTime: 2025-04-23 16:09:46
 -->
 <template>
   <div class="header-box" :class="'header-box-' + size">
-    <!-- <div class="deep-bg" v-if="showDeepBg"></div> -->
     <!-- 中间文字 -->
-    <div class="center" @click="manage3DMap">
+    <div class="center">
       <div class="center-title" :data-text="title">
         {{ title }}
       </div>
-      <div v-if="subTitle" class="sub-title">
+      <!-- <div v-if="subTitle" class="sub-title">
         {{ subTitle }}
-      </div>
+      </div> -->
     </div>
     <!-- 右边插槽 -->
     <slot></slot>
   </div>
 </template>
-<script>
-// import moment from 'moment'
-// import VConsole from '@/corePage/index/vConsole.js'
-// import { queryMixin } from '@/scopes/project/bigScreenMapbox/modulePart/situationAwareness/mixin/queryComponents.js'
-export default {
-  // mixins: [queryMixin],
-  props: {
-    // 标题
-    title: {
-      type: String,
-      default: '重庆市城市运行和治理中心'
-    },
-    // 标题
-    subTitle: {
-      type: String,
-      default: ''
-    },
-    // 整体的大小 big: 最大(市级大屏) medium: 区级大屏
-    size: {
-      type: String,
-      default: 'big'
-    },
-    showDeepBg: {}
-  },
-  data() {
-    return {}
-  },
-  mounted() {
-    // this.loadTime()
-  }
-}
+<script setup lang="ts" name="name1">
+import { onMounted } from 'vue'
+// const count = ref<number>(9)
+const props = withDefaults(defineProps<{ title?: string; size?: string }>(), {
+  title: 'xxx',
+  size: 'big'
+})
+onMounted(() => {
+  console.log(props)
+})
 </script>
+
 <style scoped lang="scss">
 @media screen and (max-width: 1920px) {
   .header-box {
@@ -70,38 +48,6 @@ export default {
     z-index: 101;
     background-position-y: -0.4rem !important;
     background-size: cover;
-
-    .time {
-      position: absolute;
-      left: -0.5rem;
-      top: -0.11rem;
-      letter-spacing: 0.8px;
-      display: flex;
-      align-items: center;
-      transform: scale(0.6);
-
-      .date {
-        margin-right: 0.1rem;
-        font-size: 0.23rem;
-        font-family: Alibaba PuHuiTi;
-        font-weight: 600;
-        color: #ffffff;
-        background: linear-gradient(0deg, #3ca2f8 0%, #ffffff 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .real-time {
-        font-size: 0.38rem;
-        font-family: Impact;
-        font-weight: 400;
-
-        background: linear-gradient(0deg, #3ca2f8 0%, #ffffff 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
 
     .center {
       position: absolute;
@@ -139,102 +85,6 @@ export default {
         box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.22);
       }
     }
-
-    .select-box {
-      position: absolute;
-      right: 0.63rem;
-      top: 34%;
-      min-width: 4rem;
-      max-height: 3rem;
-      border: 0.02rem solid #0294f2;
-      box-shadow: 0 0 0.1rem 0.05rem #107ac1 inset;
-      background-color: rgba(20, 31, 54, 0.8);
-      -webkit-backdrop-filter: blur(0.08rem);
-      backdrop-filter: blur(0.08rem);
-      border-radius: 0.06rem;
-      z-index: 999;
-
-      font-size: 0.21rem;
-      font-family: Alibaba PuHuiTi;
-      font-weight: 600;
-      color: #ffffff;
-      padding: 0.2rem;
-      pointer-events: fill;
-
-      .top {
-        font-size: 0.25rem;
-      }
-
-      .select-content {
-        display: flex;
-        flex-wrap: wrap;
-        max-height: 1.2rem;
-        overflow: auto;
-      }
-
-      .select-item {
-        width: 25%;
-      }
-      .top,
-      .select-item {
-        background: linear-gradient(0deg, #25a6ff 0%, #ffffff 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        &:hover {
-          background: linear-gradient(0deg, #f8d73c 0%, #ffffff 100%);
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      }
-
-      .text-active {
-        background: linear-gradient(0deg, #f8d73c 0%, #ffffff 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
-  }
-
-  .header-box-medium {
-    height: 1.2rem;
-
-    .center {
-      top: 6%;
-      font-size: 0.36rem;
-      font-family: AlibabaPuHuiTiR;
-      font-weight: 400;
-
-      .center-title {
-        background: linear-gradient(0deg, #4fc7ff 0%, #d7f2ff 36.8896484375%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
-
-    .time {
-      .date {
-        font-size: 0.12rem;
-        font-family: AlibabaPuHuiTiR;
-        font-weight: 400;
-        color: #ffffff;
-        background: linear-gradient(0deg, #3ca2f8 0%, #ffffff 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .real-time {
-        font-size: 0.19rem;
-        font-family: Impact;
-        font-weight: 400;
-        color: #ffffff;
-      }
-    }
   }
 }
 @media screen and (min-width: 1921px) {
@@ -251,77 +101,11 @@ export default {
     z-index: 101;
     left: 0;
     background-size: cover;
-    .area-list {
-      position: absolute;
-      font-size: 0.24rem;
-      color: #fff;
-      right: 0.4rem;
-      top: -1%;
-      font-weight: 550;
-      background-size: 100% 100%;
-      border: 0.02rem solid #0294f2;
-      box-shadow: 0 0 0.06rem 0.02rem #107ac1 inset;
-      padding: 0.01rem 0.2rem;
-      display: flex;
-      align-items: center;
-      font-size: 0.21rem;
-      font-family: Alibaba PuHuiTi;
-      font-weight: 600;
-      color: #ffffff;
-      background: linear-gradient(0deg, #25a6ff 0%, #ffffff 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      border-radius: 0.06rem;
-      pointer-events: all;
-      transform: scale(0.7);
-
-      .icon {
-        margin: 0 0.05rem;
-      }
-
-      img {
-        width: 0.2rem;
-        margin-right: 0.05rem;
-      }
-    }
 
     .title {
       height: 0.5rem;
       object-fit: contain;
       margin-top: -0.5rem;
-    }
-
-    .time {
-      position: absolute;
-      left: -0.5rem;
-      top: -0.11rem;
-      letter-spacing: 0.8px;
-      display: flex;
-      align-items: center;
-      transform: scale(0.6);
-
-      .date {
-        margin-right: 0.1rem;
-        font-size: 0.23rem;
-        font-family: Alibaba PuHuiTi;
-        font-weight: 600;
-        color: #ffffff;
-        background: linear-gradient(0deg, #3ca2f8 0%, #ffffff 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .real-time {
-        font-size: 0.38rem;
-        font-family: Impact;
-        font-weight: 400;
-
-        background: linear-gradient(0deg, #3ca2f8 0%, #ffffff 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
     }
 
     .center {
@@ -372,102 +156,6 @@ export default {
           rgba(121, 177, 239, 0.44) 100%
         );
         box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.22);
-      }
-    }
-
-    .select-box {
-      position: absolute;
-      right: 0.63rem;
-      top: 34%;
-      min-width: 4rem;
-      max-height: 3rem;
-      border: 0.02rem solid #0294f2;
-      box-shadow: 0 0 0.1rem 0.05rem #107ac1 inset;
-      background-color: rgba(20, 31, 54, 0.8);
-      -webkit-backdrop-filter: blur(0.08rem);
-      backdrop-filter: blur(0.08rem);
-      border-radius: 0.06rem;
-      z-index: 999;
-
-      font-size: 0.21rem;
-      font-family: Alibaba PuHuiTi;
-      font-weight: 600;
-      color: #ffffff;
-      padding: 0.2rem;
-      pointer-events: fill;
-
-      .top {
-        font-size: 0.25rem;
-      }
-
-      .select-content {
-        display: flex;
-        flex-wrap: wrap;
-        max-height: 1.2rem;
-        overflow: auto;
-      }
-
-      .select-item {
-        width: 25%;
-      }
-      .top,
-      .select-item {
-        background: linear-gradient(0deg, #25a6ff 0%, #ffffff 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        &:hover {
-          background: linear-gradient(0deg, #f8d73c 0%, #ffffff 100%);
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      }
-
-      .text-active {
-        background: linear-gradient(0deg, #f8d73c 0%, #ffffff 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
-  }
-
-  .header-box-medium {
-    height: 1.2rem;
-
-    .center {
-      top: 6%;
-      font-size: 0.36rem;
-      font-family: AlibabaPuHuiTiR;
-      font-weight: 400;
-
-      .center-title {
-        background: linear-gradient(0deg, #4fc7ff 0%, #d7f2ff 36.8896484375%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
-
-    .time {
-      .date {
-        font-size: 0.12rem;
-        font-family: AlibabaPuHuiTiR;
-        font-weight: 400;
-        color: #ffffff;
-        background: linear-gradient(0deg, #3ca2f8 0%, #ffffff 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .real-time {
-        font-size: 0.19rem;
-        font-family: Impact;
-        font-weight: 400;
-        color: #ffffff;
       }
     }
   }

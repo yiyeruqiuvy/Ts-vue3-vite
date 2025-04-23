@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2025-04-21 10:19:19
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-23 15:51:51
+ * @LastEditTime: 2025-04-23 16:10:16
 -->
 <template>
   <BasePageHead title="重庆市数字化城市运行和治理中心" :showDeepBg="true" />
@@ -370,7 +370,7 @@ onMounted(() => {
 
 <style lang="scss">
 #bigsceen-sj-map {
-  width: 100rem;
+  width: 100%;
   height: 100rem;
 }
 </style>
