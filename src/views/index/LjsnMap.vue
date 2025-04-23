@@ -3,14 +3,13 @@
  * @Author: peiqf
  * @Date: 2025-04-21 10:19:19
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-23 15:21:56
+ * @LastEditTime: 2025-04-23 15:51:51
 -->
 <template>
-  <!-- <div class="count">props： {{ props.count }}</div> -->
+  <BasePageHead title="重庆市数字化城市运行和治理中心" :showDeepBg="true" />
   <div id="bigsceen-sj-map"></div>
 </template>
 <script setup lang="ts" name="LjsnMap">
-// import publicMethod from '@/common/gis/js/map-public-method.js';
 import CesiumMethod from '@/common/gis/js/cesium-method.js'
 import CesiumTool from '@/common/gis/js/cesium-tool/cesium-tool.js'
 import CesiumToolBusiness from '@/common/gis/js/cesium-tool/cesium-tool-business.js'
@@ -19,43 +18,10 @@ import { useRoute } from 'vue-router'
 import { onMounted, getCurrentInstance } from 'vue'
 import jlj from './img/嘉陵江.png'
 import cj from './img/长江.png'
+import BasePageHead from '@/components/common/base-big-page-head-hyym.vue'
 // import axios from 'axios';
-// ref
 const route = useRoute() // 组合式 API
 console.log(route, 'route')
-// const ff = function async() {
-//   const params = {
-//     level: '5',
-//     value: 500105,
-//     _modulePartId_: '58d5f2da2bc24724af8d5413ccf9e32b'
-//   };
-//   const TOKEN =
-//     'eyJ0eXAiOiJqd3QiLCJjbGFnIjoiSFM1MTIiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiIxNzIuMjIuMS4xNCIsImlhdCI6MTc0NTI4NzE0OSwic3ViIjoiRTI1NkM4QTQ3RTMxOEI2RTYxNUU4QkI4MEM0OEMyQzIxMDhFNjIzNzZCM0E3QzUxM0MyNTMxRkYxNTYxQTcwMEU5MkI3MTE1MkM1OTdEQTE5N0ZGRkYyQzk0NERCMUREIiwianRpIjoiNDNmYmFlNzg2MzJmNGRmOTllMjI0YTlmNjYxZTdjNDUifQ.M5KN9XHm2YbMnd5NPozlr05dtpspyNE5Gfj8jOh29PgYBbk-fqw3UOSzzBjJScspVDtTWv5u4I_enBfc0dtL-A';
-//   axios
-//     .post(
-//       'http://localhost:8080/cockpit/statistics/eventTask/querySceneDetail',
-//       params,
-//       {
-//         headers: {
-//           //头部参数
-//           'TA-JTOKEN': TOKEN,
-//           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-//         }
-//       }
-//     )
-//     .then((res) => {
-//       console.log(res, res.data, 'res.data');
-//     });
-// };
-// ff();
-// const count1 = ref<number>(9);
-// const props = withDefaults(
-//   defineProps<{ count?: number | boolean; title?: string }>(),
-//   {
-//     count: 666,
-//     title: 'xxx'
-//   }
-// );
 /**
  * @Descripttion: 加载重庆外的天地图
  * @return {*}
@@ -316,13 +282,7 @@ const setCesiumMapPosition = function () {
     pitch: '-0.9098896444', // 俯仰角
     roll: '6.283185307179586' // 翻滚角
   }
-  // console.log(initMapData, JSON.parse(initMapData), 'initMapData');
-  // const data = JSON.parse(initMapData);
-  // 提升高度
-  // data.height = data.height * 6
   window.SJCesiumMethod.viewerChange1(initMapData)
-  // clearTimeout(tt)
-  // }, 3000);
 }
 /**
  * @Descripttion: 加载市级三维地形影像地图
@@ -333,24 +293,13 @@ const setCesiumMapPosition = function () {
 const initCesiumMapCQ = function async() {
   window.CesiumTool = new CesiumTool()
   window.CesiumToolBusiness = new CesiumToolBusiness()
-  // if (
-  //   window.SJCesiumMethod &&
-  //   window.SJCesiumMethod.imageryLayers.length > 0 &&
-  //   !isRepeat
-  // ) {
-  //   return;
-  // }
-  // if (!window.SJCesiumMethod) {
   window.SJCesiumMethod = new CesiumMethod()
   window.SJCesiumMethod.initMap('bigsceen-sj-map')
-  // } else {
   try {
     addTdtOutsideCQ()
   } catch (error) {
     console.log(error, 'error')
   }
-
-  // if (this.$route.name === 'torrentialRain') {
   // 加载市级
   window.SJCesiumMethod.initCesiumMap('500000')
   // 水桥模型
@@ -362,32 +311,7 @@ const initCesiumMapCQ = function async() {
   window.SJCesiumMethod.initCesiumMap('500106', false) // 沙坪坝
   window.SJCesiumMethod.initCesiumMap('500108', false) // 南岸区
   window.SJCesiumMethod.initCesiumMap('500105', false) // 江北
-  // }
-  // else if (this.$route.name === 'welcome') {
-  //   // 城运中心
-  //   // 加载市级
-  //   window.SJCesiumMethod.initCesiumMap('500000', true, 'cityCenter');
-  //   // 水桥模型
-  //   // window.SJCesiumMethod.addWaterAndBridge(
-  //   //   '583920561836101',
-  //   //   'cityCenter'
-  //   // )
-  //   // 编码修改
-  //   window.SJCesiumMethod.addWaterAndBridge('622141134573637', 'cityCenter');
-  //   // window.SJCesiumMethod.addWaterAndBridge(
-  //   //   '583918747119685',
-  //   //   'cityCenter'
-  //   // ) // 江北
-  //   window.SJCesiumMethod.initCesiumMapByQx('500105', false, 'cityCenter'); // 江北
-  //   window.SJCesiumMethod.initCesiumMapByQx('500103', false, 'cityCenter'); // 渝中
-  //   window.SJCesiumMethod.initCesiumMapByQx('500112', false, 'cityCenter'); // 渝北
-  //   window.SJCesiumMethod.initCesiumMapByQx('500107', false, 'cityCenter'); // 九龙坡区
-  //   window.SJCesiumMethod.initCesiumMapByQx('500106', false, 'cityCenter'); // 沙坪坝
-  //   window.SJCesiumMethod.initCesiumMapByQx('500108', false, 'cityCenter'); // 南岸区
-  // }
-
   setTimeout(() => {
-    // window.SJCesiumMethod.Add3DScene(option1)
     addSJSignLayers('区划边界')
   }, 200)
   // 修改初始定位
