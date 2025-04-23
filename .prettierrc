@@ -15,7 +15,7 @@
   "htmlWhitespaceSensitivity": "css",
   "vueIndentScriptAndStyle": false,
   "endOfLine": "auto",
-  "semi": true,
+  "semi": false,
   "overrides": [
     {
       "files": "*.json",

@@ -3,7 +3,7 @@
  * @Author: peiqf
  * @Date: 2025-04-21 10:19:19
  * @LastEditors: peiqf
- * @LastEditTime: 2025-04-23 14:44:12
+ * @LastEditTime: 2025-04-23 14:53:38
 -->
 <template>
   <!-- <div class="count">props： {{ props.count }}</div> -->
@@ -11,13 +11,13 @@
 </template>
 <script setup lang="ts" name="LjsnMap">
 // import publicMethod from '@/common/gis/js/map-public-method.js';
-import CesiumMethod from '@/common/gis/js/cesium-method.js';
-import { useRoute } from 'vue-router';
-import { onMounted } from 'vue';
+import CesiumMethod from '@/common/gis/js/cesium-method.js'
+import { useRoute } from 'vue-router'
+import { onMounted, getCurrentInstance } from 'vue'
 // import axios from 'axios';
 // ref
-const route = useRoute(); // 组合式 API
-console.log(route, 'route');
+const route = useRoute() // 组合式 API
+console.log(route, 'route')
 // const ff = function async() {
 //   const params = {
 //     level: '5',
@@ -62,16 +62,16 @@ const addTdtOutsideCQ = function async() {
       'http://23.36.2.111/multApp/datamanager/service/781a74aa-d91c-446f-9e46-38cd0407751f/458b1ef2-d73d-4c3e-b86c-78bb172e6af7/d32c93a5-8d53-47e2-b76c-6ee1963e2412/WebTileLayer/tile/{TileMatrix}/{TileCol}/{TileRow}',
       'http://23.36.2.111/multApp/datamanager/service/781a74aa-d91c-446f-9e46-38cd0407751f/52caa987-8fdb-4fd1-b65d-2845aa9fdfb4/1c9e55cf-5473-46f4-acd5-58d7d510b8ea/WebTileLayer/tile/{TileMatrix}/{TileCol}/{TileRow}'
     ]
-  };
-  window.SJCesiumMethod.loadTDTImageryLayer(option);
-};
+  }
+  window.SJCesiumMethod.loadTDTImageryLayer(option)
+}
 /**
  * @Descripttion:  大屏撒点
  * @param {*} label
  * @return {*}
  */
 const addSJSignLayers = function (label: string) {
-  console.log(label, 'label');
+  console.log(label, 'label')
   // if (label === '⼩时降⽔实况') label = '降水实况'
   // debugger
   const urls = {
@@ -238,7 +238,7 @@ const addSJSignLayers = function (label: string) {
     //   viewparams: 'valid:1;t:2024-02-23 01:00:00',
     //   type: 'WMS'
     // }
-  };
+  }
   const option = {
     ArcGisLayer: urls[label].url,
     layers: urls[label].layer,
@@ -247,7 +247,7 @@ const addSJSignLayers = function (label: string) {
     // 水厂
     // 3号线
     // 'http://23.36.2.111/multApp/datamanager/service/f38e5ec3-4a36-42c2-a69b-aaf51e61fb62/3bcfb0a7-2507-4006-a2b8-17f4ea665e14/1cea545f-c036-465a-b3ba-0a652e3f80a5/MapServer'
-  };
+  }
 
   const callBack = {
     clickCallBack: (data) => {
@@ -256,7 +256,7 @@ const addSJSignLayers = function (label: string) {
       // this.t++
       // console.log(data,'重点防洪薄弱风险点风险名录')
       if (data.name !== 'biankuang') {
-        data.modalTitle = data.name + '信息';
+        data.modalTitle = data.name + '信息'
         // this.$bus.$emit('openArcgisModal', data)
         if (
           [
@@ -290,14 +290,14 @@ const addSJSignLayers = function (label: string) {
       // window.SJCesiumMethod.viewerChange(coordinate)
     },
     mousemoveCallBack: (data) => {
-      console.log('移入', data);
+      console.log('移入', data)
     },
     mouseoutCallBack: (data) => {
-      console.log('移出', data);
+      console.log('移出', data)
     }
-  };
-  window.SJCesiumMethod.loadArcgisImageryLayer(option, callBack);
-};
+  }
+  window.SJCesiumMethod.loadArcgisImageryLayer(option, callBack)
+}
 /**
  * @Descripttion: 初始化地图相机位置
  * @return {*}
@@ -310,15 +310,15 @@ const setCesiumMapPosition = function () {
     heading: '6.283185307179586', // 航向角
     pitch: '-0.9098896444', // 俯仰角
     roll: '6.283185307179586' // 翻滚角
-  };
+  }
   // console.log(initMapData, JSON.parse(initMapData), 'initMapData');
   // const data = JSON.parse(initMapData);
   // 提升高度
   // data.height = data.height * 6
-  window.SJCesiumMethod.viewerChange1(initMapData);
+  window.SJCesiumMethod.viewerChange1(initMapData)
   // clearTimeout(tt)
   // }, 3000);
-};
+}
 /**
  * @Descripttion: 加载市级三维地形影像地图
  * @param isWarning 强降雨大屏的
@@ -336,27 +336,27 @@ const initCesiumMapCQ = function async() {
   //   return;
   // }
   // if (!window.SJCesiumMethod) {
-  window.SJCesiumMethod = new CesiumMethod();
-  window.SJCesiumMethod.initMap('bigsceen-sj-map');
+  window.SJCesiumMethod = new CesiumMethod()
+  window.SJCesiumMethod.initMap('bigsceen-sj-map')
   // } else {
   try {
-    addTdtOutsideCQ();
+    addTdtOutsideCQ()
   } catch (error) {
-    console.log(error, 'error');
+    console.log(error, 'error')
   }
 
   // if (this.$route.name === 'torrentialRain') {
   // 加载市级
-  window.SJCesiumMethod.initCesiumMap('500000');
+  window.SJCesiumMethod.initCesiumMap('500000')
   // 水桥模型
-  window.SJCesiumMethod.addWaterAndBridge();
+  window.SJCesiumMethod.addWaterAndBridge()
   // 加载三维模型
-  window.SJCesiumMethod.initCesiumMap('500103', false); // 渝中
-  window.SJCesiumMethod.initCesiumMap('500112', false); // 渝北
-  window.SJCesiumMethod.initCesiumMap('500107', false); // 九龙坡区
-  window.SJCesiumMethod.initCesiumMap('500106', false); // 沙坪坝
-  window.SJCesiumMethod.initCesiumMap('500108', false); // 南岸区
-  window.SJCesiumMethod.initCesiumMap('500105', false); // 江北
+  window.SJCesiumMethod.initCesiumMap('500103', false) // 渝中
+  window.SJCesiumMethod.initCesiumMap('500112', false) // 渝北
+  window.SJCesiumMethod.initCesiumMap('500107', false) // 九龙坡区
+  window.SJCesiumMethod.initCesiumMap('500106', false) // 沙坪坝
+  window.SJCesiumMethod.initCesiumMap('500108', false) // 南岸区
+  window.SJCesiumMethod.initCesiumMap('500105', false) // 江北
   // }
   // else if (this.$route.name === 'welcome') {
   //   // 城运中心
@@ -383,22 +383,40 @@ const initCesiumMapCQ = function async() {
 
   setTimeout(() => {
     // window.SJCesiumMethod.Add3DScene(option1)
-    addSJSignLayers('区划边界');
-  }, 200);
+    addSJSignLayers('区划边界')
+  }, 200)
   // 修改初始定位
   const tomer11 = setTimeout(() => {
-    setCesiumMapPosition();
-    clearTimeout(tomer11);
-  }, 700);
+    setCesiumMapPosition()
+    clearTimeout(tomer11)
+  }, 700)
 
   // 开启监听
-  window.SJCesiumMethod.addMapListenr();
-};
-
+  window.SJCesiumMethod.addMapListenr()
+}
+const _this = getCurrentInstance()
+console.log(_this, '_this')
+/**
+ * @Descripttion: 加载配置点位
+ * @return {*}
+ */
+const addConfigPoints = () => {
+  const t = setTimeout(() => {
+    // const _this = getCurrentInstance();
+    // console.log(_this, '_this');
+    // window.CesiumToolBusiness.addLayerAndOurPoint(this, this.sceneId)
+    // window.jjKey = {}
+    // window.jjKey._this = this
+    // window.jjKey._sceneId = this.sceneId
+    // this.addJiang()
+    clearTimeout(t)
+  }, 5000)
+}
+addConfigPoints()
 onMounted(() => {
   // console.log(count1.value);
-  initCesiumMapCQ();
-});
+  initCesiumMapCQ()
+})
 </script>
 
 <style lang="scss">
